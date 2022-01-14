@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'Carter One';
+    src: url('CarterOne.eot');
+    src: local('Carter One'), local('CarterOne'),
+        url('CarterOne.eot?#iefix') format('embedded-opentype'),
+        url('CarterOne.woff2') format('woff2'),
+        url('CarterOne.woff') format('woff'),
+        url('CarterOne.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
