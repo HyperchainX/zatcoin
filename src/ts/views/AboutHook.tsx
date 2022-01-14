@@ -374,16 +374,16 @@ const _confirmDeleteDialogId = 'delete';
     console.log("storage " + JSON.stringify(RX.Storage.getItem('pay')))
   }, [])
   return (<RX.View style={{ flex: 1, alignSelf:'stretch',justifyContent:'center',alignItems:'center',backgroundColor: '#212529' }} >
- <RX.View style={{ flexDirection: 'row', marginTop:30,justifyContent: 'flex-start', alignItems: 'center',alignSelf:"flex-start",marginLeft: 70 }}>
-  <RX.Image source={ImageSource.vector8} style={{     marginRight:10,width: 15, height: 15,marginTop:5 }} />
+ <RX.View style={{ flexDirection: 'row', width:1100,marginTop:20,justifyContent: 'flex-start', alignItems: 'center',alignSelf:"center", }}>
+  <RX.Image source={ImageSource.vector8} style={{     marginRight:10,width: 15, height: 15, }} />
         
-    <RX.Text style={[_styles.titleStyleBig, {alignSelf: 'flex-start',  }]} >
+    <RX.Text style={[_styles.titleStyleBig, {alignSelf: 'center', }]} >
       {"WALLET PROFILE."}
     </RX.Text>
     
     </RX.View>
   {isLogin === false ?
-  <RX.View style={{ flex:1, marginTop: 0, paddingBottom: 20, marginBottom: 10, marginLeft: 70 ,alignSelf: 'stretch', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'flex-end' }}>
+  <RX.View style={{ flex:1, marginTop: 0, paddingBottom: 20, marginBottom: 10, alignSelf: 'stretch', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
     <RX.View style={{ position:'relative',marginBottom: 30, height: 300, width: width*0.72, justifyContent: 'center', alignItems: 'center', alignSelf: 'flex-start', }}>
 
       <UI.Paper elevation={10} style={{ root: {margin:10,elevation: 0, position: 'absolute', justifyContent: "center", alignItems: "center", borderRadius: 20, width: width*0.7, backgroundColor: '#343A40', height: 250 } }} >
@@ -404,7 +404,7 @@ const _confirmDeleteDialogId = 'delete';
       </UI.Paper>
     </RX.View>
 
-  </RX.View>  :  <RX.View style={{ flex:1,alignSelf: 'stretch', justifyContent: 'flex-start', alignItems: 'flex-start' }}>
+  </RX.View>  :  <RX.View style={{ flex:1,alignSelf: 'stretch', justifyContent: 'center', alignItems: 'center' }}>
                          
                             <UI.Paper elevation={10} style={{ root: {margin:10, marginLeft: 70 ,justifyContent: "center", alignItems: "center", borderRadius: 20, width: width*0.7, backgroundColor: '#343A40', height: 350 } }} >
                       

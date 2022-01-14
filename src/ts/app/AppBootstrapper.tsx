@@ -119,9 +119,9 @@ export default abstract class AppBootstrapper {
     load = async () => {
 
         const web3 = await Moralis.Web3.enable();
-        const cootiesContract = await new web3.eth.Contract(abi.collectionContractAbi, "0x958e030e5937414b8b54e4647fb513e348ed90e5")
+  //      const cootiesContract = await new web3.eth.Contract(abi.tokenContractAbi, "0x958e030e5937414b8b54e4647fb513e348ed90e5")
 
-        let prices = await cootiesContract.methods.getPrice().call()
+      //  let prices = await cootiesContract.methods.getPrice().call()
         const options = {
             address: "0x958e030e5937414b8b54e4647fb513e348ed90e5",
             chain: "bsc",

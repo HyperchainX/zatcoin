@@ -1,3 +1,5 @@
+
+export const tokenContractAbi=[]
 export const collectionContractAbi=[
 	{
 		"inputs": [],

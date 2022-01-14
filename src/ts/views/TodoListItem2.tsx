@@ -36,9 +36,8 @@ const _styles = {
         borderColor: '#2B2B2B',
         backgroundColor: '#343A40',
         flexDirection: 'row',
-        paddingLeft: 32,
         alignItems: 'center',
-        justifyContent: 'flex-start',
+        justifyContent: 'center',
     }),
     todoNameText: RX.Styles.createTextStyle({
         flex: -1,

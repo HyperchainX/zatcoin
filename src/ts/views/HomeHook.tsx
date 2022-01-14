@@ -312,19 +312,19 @@ export const HomeHook = ({
   };
   return (<RX.View style={{ flex: 1, alignSelf:'stretch',justifyContent:'center',alignItems:'center',backgroundColor: '#212529' }} >
   
-  <RX.Image source={ImageSource.vector19} style={{  alignSelf: 'center',  width: 250, height: 150,marginBottom:10, }} />
-  <RX.View style={{ flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'flex-start',alignSelf:"flex-start",marginLeft: 70 }}>
+  <RX.Image source={ImageSource.vector19} style={{  alignSelf: 'center',  width: 250, height: 150,marginBottom:30, }} />
+  <RX.View style={{ flexDirection: 'row', width:1100,marginTop:15,justifyContent: 'flex-start', alignItems: 'center',alignSelf:"center", }}>
   <RX.Image source={ImageSource.vector21} style={{     marginRight:10,width: 15, height: 15,marginTop:5 }} />
         
-    <RX.Text style={[_styles.titleStyleBig, {alignSelf: 'flex-start',  }]} >
+    <RX.Text style={[_styles.titleStyleBig, {alignSelf: 'center', }]} >
       {"TOKEN INFO."}
     </RX.Text>
     
     </RX.View>
-    <RX.View style={{ height:170, marginTop: 10, paddingBottom: 20, marginBottom: 10, marginLeft: 70 ,alignSelf: 'stretch', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'flex-end' }}>
-      <RX.View style={{ position:'relative',marginBottom: 30, height: 160, width: 350, justifyContent: 'center', alignItems: 'center', alignSelf: 'flex-start', }}>
+    <RX.View style={{ height:170, marginTop: 10, paddingBottom: 20, marginBottom: 10, alignSelf: 'stretch', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+      <RX.View style={{ position:'relative',marginBottom: 30, height: 160, width: 380, justifyContent: 'center', alignItems: 'center', alignSelf: 'flex-start', }}>
 
-        <UI.Paper elevation={10} style={{ root: {margin:20,elevation: 0, position: 'absolute', justifyContent: "center", alignItems: "flex-start", borderRadius: 8, width: 330, backgroundColor: '#343A40', height: 145 } }} >
+        <UI.Paper elevation={10} style={{ root: {margin:20,elevation: 0, position: 'absolute', justifyContent: "center", alignItems: "flex-start", borderRadius: 8, width: 350, backgroundColor: '#343A40', height: 135 } }} >
 
           <RX.View style={{ flexDirection: 'row', paddingLeft:15,justifyContent: 'center', alignItems: 'center', }}>
 
@@ -348,9 +348,9 @@ export const HomeHook = ({
         </RX.View>
 
       </RX.View>
-      <RX.View style={{ position:'relative',marginBottom: 30, height: 160, width: 350, justifyContent: 'center', alignItems: 'center', alignSelf: 'flex-start', }}>
+      <RX.View style={{ position:'relative',marginBottom: 30, height: 160, width: 380, justifyContent: 'center', alignItems: 'center', alignSelf: 'flex-start', }}>
 
-<UI.Paper elevation={10} style={{ root: {margin:20,elevation: 0, position: 'absolute', justifyContent: "center", alignItems: "flex-start", borderRadius: 8, width: 330, backgroundColor: '#343A40', height: 145 } }} >
+<UI.Paper elevation={10} style={{ root: {margin:20,elevation: 0, position: 'absolute', justifyContent: "center", alignItems: "flex-start", borderRadius: 8, width: 350, backgroundColor: '#343A40', height: 135 } }} >
 
   <RX.View style={{ flexDirection: 'row', paddingLeft:15,justifyContent: 'center', alignItems: 'center', }}>
 
@@ -376,9 +376,9 @@ export const HomeHook = ({
 </RX.View>
 
 </RX.View>
-<RX.View style={{ position:'relative',marginBottom: 30, height: 160, width: 350, justifyContent: 'center', alignItems: 'center', alignSelf: 'flex-start', }}>
+<RX.View style={{ position:'relative',marginBottom: 30, height: 160, width: 380, justifyContent: 'center', alignItems: 'center', alignSelf: 'flex-start', }}>
 
-        <UI.Paper elevation={10} style={{ root: {margin:20,elevation: 0, position: 'absolute', justifyContent: "center", alignItems: "flex-start", borderRadius: 8, width: 330, backgroundColor: '#343A40', height: 145 } }} >
+        <UI.Paper elevation={10} style={{ root: {margin:20,elevation: 0, position: 'absolute', justifyContent: "center", alignItems: "flex-start", borderRadius: 8, width: 350, backgroundColor: '#343A40', height: 135 } }} >
 
           <RX.View style={{ flexDirection: 'row', paddingLeft:15,justifyContent: 'center', alignItems: 'center', }}>
 
@@ -406,10 +406,10 @@ export const HomeHook = ({
       </RX.View>
 
     </RX.View>
-    <RX.View style={{  height:170,marginLeft: 70 , marginTop: 0, paddingBottom: 0, marginBottom: 10, alignSelf: 'stretch', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'flex-start' }}>
-      <RX.View style={{ position:'relative',marginBottom: 30, height: 160, width: 350, justifyContent: 'center', alignItems: 'center', alignSelf: 'flex-start', }}>
+    <RX.View style={{  height:170,marginTop: 0, paddingBottom: 0, marginBottom: 10, alignSelf: 'stretch', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+      <RX.View style={{ position:'relative',marginBottom: 30, height: 160, width: 380, justifyContent: 'center', alignItems: 'center', alignSelf: 'flex-start', }}>
 
-        <UI.Paper elevation={10} style={{ root: {margin:20,elevation: 0, position: 'absolute', justifyContent: "center", alignItems: "flex-start", borderRadius: 8, width: 330, backgroundColor: '#343A40', height: 145 } }} >
+        <UI.Paper elevation={10} style={{ root: {margin:20,elevation: 0, position: 'absolute', justifyContent: "center", alignItems: "flex-start", borderRadius: 8, width: 350, backgroundColor: '#343A40', height: 135 } }} >
 
           <RX.View style={{ flexDirection: 'row', paddingLeft:15,justifyContent: 'center', alignItems: 'center', }}>
 
@@ -435,9 +435,9 @@ export const HomeHook = ({
         </RX.View>
 
       </RX.View>
-      <RX.View style={{ position:'relative',marginBottom: 30, height: 160, width: 350, justifyContent: 'center', alignItems: 'center', alignSelf: 'flex-start', }}>
+      <RX.View style={{ position:'relative',marginBottom: 30, height: 160, width: 380, justifyContent: 'center', alignItems: 'center', alignSelf: 'flex-start', }}>
 
-<UI.Paper elevation={10} style={{ root: {margin:20,elevation: 0, position: 'absolute', justifyContent: "center", alignItems: "flex-start", borderRadius: 8, width: 330, backgroundColor: '#343A40', height: 145 } }} >
+<UI.Paper elevation={10} style={{ root: {margin:20,elevation: 0, position: 'absolute', justifyContent: "center", alignItems: "flex-start", borderRadius: 8, width: 350, backgroundColor: '#343A40', height: 135 } }} >
 
   <RX.View style={{ flexDirection: 'row', paddingLeft:15,justifyContent: 'center', alignItems: 'center', }}>
 
@@ -463,9 +463,9 @@ export const HomeHook = ({
 </RX.View>
 
 </RX.View>
-<RX.View style={{ position:'relative',marginBottom: 30, height: 160, width: 350, justifyContent: 'center', alignItems: 'center', alignSelf: 'flex-start', }}>
+<RX.View style={{ position:'relative',marginBottom: 30, height: 160, width: 380, justifyContent: 'center', alignItems: 'center', alignSelf: 'flex-start', }}>
 
-        <UI.Paper elevation={10} style={{ root: {margin:20,elevation: 0, position: 'absolute', justifyContent: "center", alignItems: "flex-start", borderRadius: 8, width: 330, backgroundColor: '#343A40', height: 145 } }} >
+        <UI.Paper elevation={10} style={{ root: {margin:20,elevation: 0, position: 'absolute', justifyContent: "center", alignItems: "flex-start", borderRadius: 8, width: 350, backgroundColor: '#343A40', height: 135 } }} >
 
           <RX.View style={{ flexDirection: 'row', paddingLeft:15,justifyContent: 'center', alignItems: 'center', }}>
 
