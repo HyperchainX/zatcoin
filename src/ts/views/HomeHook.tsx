@@ -314,7 +314,7 @@ export const HomeHook = ({
   
   <RX.Image source={ImageSource.vector19} style={{  alignSelf: 'center',  width: 250, height: 150,marginBottom:30, }} />
   <RX.View style={{ flexDirection: 'row', width:1100,marginTop:15,justifyContent: 'flex-start', alignItems: 'center',alignSelf:"center", }}>
-  <RX.Image source={ImageSource.vector21} style={{     marginRight:10,width: 15, height: 15,marginTop:5 }} />
+  <RX.Image source={ImageSource.vector21} style={{     marginRight:10,width: 15, height: 15, }} />
         
     <RX.Text style={[_styles.titleStyleBig, {alignSelf: 'center', }]} >
       {"TOKEN INFO."}
@@ -332,15 +332,18 @@ export const HomeHook = ({
               <RX.Text style={[_styles.titleStyle5, { alignSelf: 'flex-start', marginRight: 20, marginTop: 10, marginBottom: 10 }]} >
                 {"Zatcoin Price"}
               </RX.Text>
-
+{price==0?
+              <RX.Text style={[_styles.titleStyle, { alignSelf: 'flex-end', marginRight: 20, marginBottom: 10 }]} >
+                {"Loading.."}
+              </RX.Text>:
               <RX.Text style={[_styles.titleStyle, { alignSelf: 'flex-end', marginRight: 20, marginBottom: 10 }]} >
                 {"$ "+price}
-              </RX.Text>
+              </RX.Text>}
               </RX.View>
           </RX.View>
          
         </UI.Paper>
-        <RX.View style={{ position: 'absolute', marginRight: -240, marginBottom: 60, }}>
+        <RX.View style={{ position: 'absolute', marginRight: -260, marginBottom: 60, }}>
           <UI.Paper style={{ root: { elevation: 1, justifyContent: "center", alignItems: "center", borderRadius: 100, width: 50, backgroundColor: '#212529', marginLeft: 0, height: 50 } }} >
           <RX.Image source={ImageSource.vector2} style={{  alignSelf: 'center',  width: 18, height: 18 }} />
           </UI.Paper>
@@ -366,7 +369,7 @@ export const HomeHook = ({
   </RX.View>
  
 </UI.Paper>
-<RX.View style={{ position: 'absolute', marginRight: -240, marginBottom: 60, }}>
+<RX.View style={{ position: 'absolute', marginRight: -260, marginBottom: 60, }}>
   <UI.Paper style={{ root: { elevation: 1, justifyContent: "center", alignItems: "center", borderRadius: 100, width: 50, backgroundColor: '#212529', marginLeft: 0, height: 50 } }} >
 
   <RX.Image source={ImageSource.vector4} style={{  alignSelf: 'center',  width: 18, height: 18 }} />
@@ -394,7 +397,7 @@ export const HomeHook = ({
           </RX.View>
          
         </UI.Paper>
-        <RX.View style={{ position: 'absolute', marginRight: -240, marginBottom: 60, }}>
+        <RX.View style={{ position: 'absolute', marginRight: -260, marginBottom: 60, }}>
           <UI.Paper style={{ root: { elevation: 1, justifyContent: "center", alignItems: "center", borderRadius: 100, width: 50, backgroundColor: '#212529', marginLeft: 0, height: 50 } }} >
 
           <RX.Image source={ImageSource.vector5} style={{  alignSelf: 'center',  width: 18, height: 18 }} />
@@ -425,7 +428,7 @@ export const HomeHook = ({
           </RX.View>
          
         </UI.Paper>
-        <RX.View style={{ position: 'absolute', marginRight: -240, marginBottom: 60, }}>
+        <RX.View style={{ position: 'absolute', marginRight: -260, marginBottom: 60, }}>
           <UI.Paper style={{ root: { elevation: 1, justifyContent: "center", alignItems: "center", borderRadius: 100, width: 50, backgroundColor: '#212529', marginLeft: 0, height: 50 } }} >
 
           <RX.Image source={ImageSource.vector3} style={{  alignSelf: 'center',  width: 18, height: 18 }} />
@@ -453,7 +456,7 @@ export const HomeHook = ({
   </RX.View>
  
 </UI.Paper>
-<RX.View style={{ position: 'absolute', marginRight: -240, marginBottom: 60, }}>
+<RX.View style={{ position: 'absolute', marginRight: -260, marginBottom: 60, }}>
   <UI.Paper style={{ root: { elevation: 1, justifyContent: "center", alignItems: "center", borderRadius: 100, width: 50, backgroundColor: '#212529', marginLeft: 0, height: 50 } }} >
 
   <RX.Image source={ImageSource.vector7} style={{  alignSelf: 'center',  width: 18, height: 18 }} />
@@ -481,7 +484,7 @@ export const HomeHook = ({
           </RX.View>
          
         </UI.Paper>
-        <RX.View style={{ position: 'absolute', marginRight: -240, marginBottom: 60, }}>
+        <RX.View style={{ position: 'absolute', marginRight: -260, marginBottom: 60, }}>
           <UI.Paper style={{ root: { elevation: 1, justifyContent: "center", alignItems: "center", borderRadius: 100, width: 50, backgroundColor: '#212529', marginLeft: 0, height: 50 } }} >
 
           <RX.Image source={ImageSource.vector6} style={{  alignSelf: 'center',  width: 18, height: 18 }} />
