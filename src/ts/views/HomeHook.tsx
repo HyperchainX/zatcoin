@@ -215,6 +215,10 @@ ChartJS.register(
   LineElement
 );
 
+import RXVideo from 'reactxp-video';
+
+var _mountedVideo: RXVideo | undefined;
+
 import { ResponsiveBar } from '@nivo/bar'
 
 export const HomeHook = ({
@@ -324,24 +328,35 @@ export const HomeHook = ({
     setPlaying(true)
   };
   const [volume, setVolumen] = useState(0.7)
-  
+
+  const _onMountVideo = (component: RXVideo) => {
+    _mountedVideo = component;
+  }
+  const _playVideo = () => {
+    if (_mountedVideo) {
+      _mountedVideo.mute(true);
+      _mountedVideo.play();
+    }
+  }
+
   const [isPlaying, setPlaying] = useState(false)
   return (<RX.View style={{ flex: 1, alignSelf:'stretch',justifyContent:'center',alignItems:'center',backgroundColor: '#212529' }} >
-  <RX.View style={{borderRadius:11,marginBottom:30}}>
-                      <VideoPlayer
-                        url={'https://media.discordapp.net/attachments/930516452627345459/930842625475502111/FINAL_RENDER_001.mp4'}
-                        isPlaying={true}
-                        volume={volume}
-                        onPlay={handlePlay}
-                        onPause={handlePause}
-                        onVolume={handleVolume}
-                        height={'220px'}
-                        width={'382px'}
-                        loop={true}
+                     <RX.View style={{width: 400, height: 280,borderRadius:11,marginBottom:0}}>
+                  
                       
-                      /> 
+      <RXVideo
+        source={'https://res.cloudinary.com/indexcoorp/video/upload/v1642202319/FINAL_RENDER_001_1_tnklob.mp4'}
+        style={{  flex:1,alignSelf:'stretch',borderRadius:11 }}
+        loop={true}
+        
+        onCanPlay={_playVideo}
+        showControls={false}
+
+        ref={_onMountVideo}
+      />
+                    
                       </RX.View>
-                       <RX.View style={{ flexDirection: 'row', width:900,marginTop:15,justifyContent: 'flex-start', alignItems: 'center',alignSelf:"center", }}>
+                       <RX.View style={{ flexDirection: 'row', width:900,marginTop:10,justifyContent: 'flex-start', alignItems: 'center',alignSelf:"center", }}>
                        <RX.Image source={ImageSource.vector8} style={{     marginRight:10,width: 15, height: 15, }} />
         
     
@@ -350,7 +365,7 @@ export const HomeHook = ({
     </RX.Text>
     
     </RX.View>
-    <RX.View style={{ height:170, marginTop: 10, paddingBottom: 20, marginBottom: 10, alignSelf: 'stretch', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+    <RX.View style={{ height:170, marginTop: 10, paddingBottom: 40, marginBottom: 10, alignSelf: 'stretch', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
       <RX.View style={{ position:'relative',marginBottom: 30, height: 160, width: 380, justifyContent: 'center', alignItems: 'center', alignSelf: 'flex-start', }}>
 
         <UI.Paper elevation={10} style={{ root: {margin:20,elevation: 0, position: 'absolute', justifyContent: "center", alignItems: "flex-start", borderRadius: 8, width: 350, backgroundColor: '#343A40', height: 135 } }} >
