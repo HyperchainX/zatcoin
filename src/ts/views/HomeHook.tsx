@@ -3,6 +3,7 @@ import ImageSource from 'modules/images';
 
 import { Fonts, FontSizes, } from '../app/Styles';
 
+import VideoPlayer from 'react-video-player-extended';
 const _styles = {
   slider: RX.Styles.createViewStyle({
     alignSelf: 'center',
@@ -296,7 +297,6 @@ export const HomeHook = ({
   const data = {
     labels,
     datasets: [
-
       {
 
         barPercentage: 0.5,
@@ -310,13 +310,42 @@ export const HomeHook = ({
       }
     ],
   };
-  return (<RX.View style={{ flex: 1, alignSelf:'stretch',justifyContent:'center',alignItems:'center',backgroundColor: '#212529' }} >
   
-  <RX.Image source={ImageSource.vector19} style={{  alignSelf: 'center',  width: 250, height: 150,marginBottom:30, }} />
-  <RX.View style={{ flexDirection: 'row', width:1100,marginTop:15,justifyContent: 'flex-start', alignItems: 'center',alignSelf:"center", }}>
-  <RX.Image source={ImageSource.vector21} style={{     marginRight:10,width: 15, height: 15, }} />
+  function handleVolume(value: any) {
+    setVolumen(value)
+  };
+
+  const handlePause = () => {
+
+    setPlaying(false)
+  };
+
+  const handlePlay = () => {
+    setPlaying(true)
+  };
+  const [volume, setVolumen] = useState(0.7)
+  
+  const [isPlaying, setPlaying] = useState(false)
+  return (<RX.View style={{ flex: 1, alignSelf:'stretch',justifyContent:'center',alignItems:'center',backgroundColor: '#212529' }} >
+  <RX.View style={{borderRadius:11,marginBottom:30}}>
+                      <VideoPlayer
+                        url={'https://media.discordapp.net/attachments/930516452627345459/930842625475502111/FINAL_RENDER_001.mp4'}
+                        isPlaying={true}
+                        volume={volume}
+                        onPlay={handlePlay}
+                        onPause={handlePause}
+                        onVolume={handleVolume}
+                        height={'220px'}
+                        width={'382px'}
+                        loop={true}
+                      
+                      /> 
+                      </RX.View>
+                       <RX.View style={{ flexDirection: 'row', width:900,marginTop:15,justifyContent: 'flex-start', alignItems: 'center',alignSelf:"center", }}>
+                       <RX.Image source={ImageSource.vector8} style={{     marginRight:10,width: 15, height: 15, }} />
         
-    <RX.Text style={[_styles.titleStyleBig, {alignSelf: 'center', }]} >
+    
+                        <RX.Text style={[_styles.titleStyleBig, {alignSelf: 'center', }]} >
       {"TOKEN INFO."}
     </RX.Text>
     
@@ -502,5 +531,5 @@ export const HomeHook = ({
 };
 
 import * as RX from 'reactxp'
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 

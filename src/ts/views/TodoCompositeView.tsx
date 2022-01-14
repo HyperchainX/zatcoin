@@ -69,6 +69,7 @@ export interface TodoCompositeViewProps extends RX.CommonProps {
 
 interface TodoCompositeViewState {
     activeId: string;
+    isConnected:boolean;
     navId: string;
     price:number;
 }
@@ -110,6 +111,7 @@ export default class TodoCompositeView extends ComponentBase<TodoCompositeViewPr
     protected _buildState(props: TodoCompositeViewProps, initState: boolean): Partial<TodoCompositeViewState> | undefined {
         const partialState: Partial<TodoCompositeViewState> = {
             activeId: CurrentUserStore.getActive(),
+            isConnected:CurrentUserStore.getIsConnect(),
             navId: CurrentUserStore.getNavId(),
             price: CurrentUserStore.getPrice(),
 
@@ -153,7 +155,7 @@ export default class TodoCompositeView extends ComponentBase<TodoCompositeViewPr
             );
         } else if (this.props.navContext.showAbout) {
             return (
-                <AboutHook isLogin={this.props.isLogin} isStackNav={this.props.isStackNav} len={this.props.lenguage} entries={[]} width={this.props.width} />
+                <AboutHook isConnected={this.state.isConnected} isLogin={this.props.isLogin} isStackNav={this.props.isStackNav} len={this.props.lenguage} entries={[]} width={this.props.width} />
             );
         } else if (this.props.navContext.showInvolve) {
             return (

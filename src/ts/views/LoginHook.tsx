@@ -324,14 +324,13 @@ export const LoginHook = ({
          <RX.Text style={[_styles.Text33, { width: 200, marginTop: 20, textAlign: 'left', alignSelf: 'flex-start', }]}>
          {'Password*'}
       </RX.Text>
-
-              <RX.TextInput spellCheck={false} autoCorrect={false} placeholderTextColor={'white'} style={_styles.input} value={email} onChangeText={setEmail} placeholder="Enter your E-mail" />
-              <RX.Text style={[_styles.Text33, { width: 200, marginTop: 20, textAlign: 'left', alignSelf: 'flex-start', }]}>
+      <RX.TextInput spellCheck={false} autoCorrect={false} placeholderTextColor={'white'} style={_styles.input} value={password} secureTextEntry={true} onChangeText={setPassword} placeholder="Password" />
+             
+   <RX.Text style={[_styles.Text33, { width: 200, marginTop: 20, textAlign: 'left', alignSelf: 'flex-start', }]}>
          {'Repeat Password*'}
       </RX.Text>
-
-              <RX.TextInput spellCheck={false} autoCorrect={false} placeholderTextColor={'white'} style={_styles.input} value={email} onChangeText={setEmail} placeholder="Enter your E-mail" />
-           
+      <RX.TextInput spellCheck={false} autoCorrect={false} placeholderTextColor={'white'} style={_styles.input} value={password2} secureTextEntry={true} onChangeText={setPassword2} placeholder="Repeat Password" />
+ 
              {!onPassWordError ? <RX.View style={{ height: 50, width: 200 }}>{''}</RX.View> : <RX.View style={{ height: 50, width: 200 }}> <RX.Text style={[_styles.Text3, { width: 200, marginTop: 50, textAlign: 'center', alignSelf: 'center', }]}>
                 {'Password not Math'}
               </RX.Text></RX.View>}
@@ -342,11 +341,11 @@ export const LoginHook = ({
     </RX.View>
     <RX.View>
       {cargando ? <RX.View> <RX.Text style={[_styles.Text3, { width: 200, marginTop: 50, textAlign: 'center', alignSelf: 'center', }]}>
-        {'Cargando...'}
+        {'Loading...'}
       </RX.Text></RX.View> :
         <RX.View>
 
-        <RX.View style={{ paddingBottom: 50,justifyContent: 'center', alignItems: 'center' }}>
+        <RX.View style={{ paddingBottom: 20,justifyContent: 'center', alignItems: 'center' }}>
            
          
            
@@ -453,28 +452,36 @@ export const LoginHook = ({
   };
   async function onRegister() {
 
-
     setCargando(true)
-  
+    if (password !== password2) {
+      if (password.length <= 6) {
+
+        CurrentUserStore.setError('Password too short')
+        await setOnPassWordError(true)
+      } else {
+        await setOnPassWordError(true)
+
+        CurrentUserStore.setError('Password dont Match')
+      }
+    } else {
       const Moralis = require('moralis');
       // Hooray! Let them use the app now.
       const now = Date.now().valueOf();
-      const user = new Moralis.User();
-      user.set("username", username);
-      user.set("email", email);
-
+      const user = Moralis.User.current();
+      console.log(user)
+      const result = await Moralis.Cloud.run("setCredentials", { address:user.get('ethAddress'),email:email,username:username,password:password });
+console.log(result)
       try {
-        await user.save();
 
-        let username = user.get('username')
-        let email = user.get('email')
+        let username = user.get('name')
+        let email = user.get('correo')
         let createdAt = user.get('createdAt')
         let updatedAt = user.get('updatedAt')
         let avatar = user.get('avatar')
         let eth = user.get('ethAddress')
         setCargando(false)
         setAvatar(true)
-        CurrentUserStore.setLogin(true)
+        CurrentUserStore.setConnect(true)
         CurrentUserStore.setUser(username, email, createdAt, "", updatedAt, avatar, eth)
 
         SimpleDialog.dismissAnimated(_confirmDeleteDialogId)
@@ -485,7 +492,7 @@ export const LoginHook = ({
 
         CurrentUserStore.setError(error.message)
       }
-    
+    }
 
     setCargando(false)
   }

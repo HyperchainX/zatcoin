@@ -34,6 +34,7 @@ interface RootViewState {
     entries: Entries[];
     viewTitle: string;
     isStackNav: boolean;
+    isConnected:boolean;
     width: number;
     isConnect: boolean;
     lenguage: string
@@ -102,8 +103,8 @@ export default class RootView extends ComponentBase<RootViewProps, RootViewState
             user: CurrentUserStore.getUser(),
             mensajes: CurrentUserStore.getMensajes(),
             autores: CurrentUserStore.getAutores(),
+            isConnected:CurrentUserStore.getIsConnect(),
             lenguage: CurrentUserStore.getLenguage(),
-            isConnect: CurrentUserStore.getIsConnect(),
             owner: CurrentUserStore.getOwner(),
             ownerId: CurrentUserStore.getOwnerId(),
             isLogin: CurrentUserStore.getLogin(),
@@ -306,7 +307,7 @@ const tokenMetadata = await Moralis.Web3API.token.getTokenMetadata(options2);
             case NavModels.NavViewId.Partner:
                 return <PartnerHook isStackNav={this.state.isStackNav} len={this.state.lenguage} />;
             case NavModels.NavViewId.About:
-                return <AboutHook isLogin={this.state.isLogin}  isStackNav={this.state.isStackNav} len={this.state.lenguage} entries={[]} width={this.state.width} />;
+                return <AboutHook isConnected={this.state.isConnected}  isLogin={this.state.isLogin}  isStackNav={this.state.isStackNav} len={this.state.lenguage} entries={[]} width={this.state.width} />;
             case NavModels.NavViewId.Involve:
                 return <InvolveHook isStackNav={this.state.isStackNav} len={this.state.lenguage} entries={[]} width={this.state.width} />;
             case NavModels.NavViewId.Road:

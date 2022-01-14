@@ -227,10 +227,13 @@ export const AboutHook = ({
   entries,isLogin,
   isStackNav,
   width,
+  isConnected,
   len,
 }: {
   entries: Entries[];
   width: number;
+  
+  isConnected:boolean;
   isStackNav: boolean;
   len: string;
   isLogin:boolean;
@@ -244,18 +247,24 @@ export const AboutHook = ({
   
   
       await Moralis.authenticate().then(async (user: any) => {
-        let username = user.get('username')
+        let username = user.get('name')
         let createdAt = user.get('createdAt')
         let updatedAt = user.get('updatedAt')
         let address = user.get('ethAddress')
+        let email = user.get('correo')
         const chainId = await Moralis.getChainId();
-  
-  
+        console.log("email "+email)
+        console.log("email "+username)
+
+        if(email!==''){
+
+          CurrentUserStore.setConnect(true)
+        }
         let avatar = user.get('avatar')
         if (avatar === undefined) {
-          CurrentUserStore.setUser(username, '', createdAt, '', updatedAt, '', address)
+          CurrentUserStore.setUser(username, email, createdAt, '', updatedAt, '', address)
         } else {
-          CurrentUserStore.setUser(username, '', createdAt, '', updatedAt, avatar, address)
+          CurrentUserStore.setUser(username, email, createdAt, '', updatedAt, avatar, address)
         }
         if (address === '0xfd2b6f391066d8eafa910fe73ea90c197c21d338' || address === '0x069dffd8d5e00952d956aef824d3e3dcdadeea63' || address === '0X069DFFD8D5E00952D956AEF824D3E3DCDADEEA63' || address === '0x5e569bbc0a04f1b01cb76905f40557647536e6b1') {
   
@@ -266,10 +275,9 @@ export const AboutHook = ({
         }
   
   
-        CurrentUserStore.setConnect(true)
+        CurrentUserStore.setLogin(true)
   
         setCargando(false)
-        CurrentUserStore.setLogin(true)
         return
       })
   
@@ -326,8 +334,8 @@ const _confirmDeleteDialogId = 'delete';
             dialogId={_confirmDeleteDialogId}
             text={''}
             containerStyle={{ alignSelf: 'center',borderWidth:0, justifyContent: 'center', alignItems: 'center' }}
-            maxHeight={600}
-            maxWidth={400}
+            maxHeight={700}
+            maxWidth={450}
             isRegister={true}
 
             buttons={[{
@@ -357,7 +365,6 @@ const _confirmDeleteDialogId = 'delete';
     RX.Modal.show(dialog, _confirmDeleteDialogId);
 };
   const labels = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
-
   const data = {
     labels,
 
@@ -374,16 +381,16 @@ const _confirmDeleteDialogId = 'delete';
     console.log("storage " + JSON.stringify(RX.Storage.getItem('pay')))
   }, [])
   return (<RX.View style={{ flex: 1, alignSelf:'stretch',justifyContent:'center',alignItems:'center',backgroundColor: '#212529' }} >
- <RX.View style={{ flexDirection: 'row', width:1100,marginTop:20,justifyContent: 'flex-start', alignItems: 'center',alignSelf:"center", }}>
+                       <RX.View style={{ flexDirection: 'row', width:900,marginTop:30,justifyContent: 'flex-start', alignItems: 'center',alignSelf:"center", }}>
   <RX.Image source={ImageSource.vector8} style={{     marginRight:10,width: 15, height: 15, }} />
         
-    <RX.Text style={[_styles.titleStyleBig, {alignSelf: 'center', }]} >
+    <RX.Text style={[_styles.titleStyleBig, {alignSelf: 'flex-start', }]} >
       {"WALLET PROFILE."}
     </RX.Text>
     
     </RX.View>
   {isLogin === false ?
-  <RX.View style={{ flex:1, marginTop: 0, paddingBottom: 20, marginBottom: 10, alignSelf: 'stretch', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+  <RX.View style={{ flex:1,alignSelf: 'stretch',marginTop: 0, paddingBottom: 20, marginBottom: 10, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
     <RX.View style={{ position:'relative',marginBottom: 30, height: 300, width: width*0.72, justifyContent: 'center', alignItems: 'center', alignSelf: 'flex-start', }}>
 
       <UI.Paper elevation={10} style={{ root: {margin:10,elevation: 0, position: 'absolute', justifyContent: "center", alignItems: "center", borderRadius: 20, width: width*0.7, backgroundColor: '#343A40', height: 250 } }} >
@@ -404,7 +411,7 @@ const _confirmDeleteDialogId = 'delete';
       </UI.Paper>
     </RX.View>
 
-  </RX.View>  :  <RX.View style={{ flex:1,alignSelf: 'stretch', justifyContent: 'center', alignItems: 'center' }}>
+  </RX.View>  :  <RX.View style={{  flex:1,alignSelf:'stretch',justifyContent: 'flex-start', alignItems: 'center' }}>
                          
                             <UI.Paper elevation={10} style={{ root: {margin:10, marginLeft: 70 ,justifyContent: "center", alignItems: "center", borderRadius: 20, width: width*0.7, backgroundColor: '#343A40', height: 400 } }} >
                       
@@ -451,7 +458,7 @@ const _confirmDeleteDialogId = 'delete';
 {"ZATCOIN STATUS"}
 </RX.Text>
 <RX.Text style={[_styles.titleStyle, { alignSelf: 'center', marginRight: 20, marginBottom: 10 }]} >
-{"Not Registered"}
+{isConnected==true?"Registered Account":"Not Registered"}
 </RX.Text>
 </RX.View>   
 
@@ -460,7 +467,9 @@ const _confirmDeleteDialogId = 'delete';
                               <UI.Button onPress={_onPressModal}  style={{ content: [{ marginTop:20,marginBottom:20,width: 160, borderWidth:0,borderRadius: 11,backgroundColor:'#DC3545', }], label: _styles.label }
                                             } elevation={4} variant={"outlined"} label="Disconnect" />
                             </UI.Paper>
-                        
+                         
+                            {isConnected==true?null:
+ 
                       <UI.Paper elevation={10} style={{ root: {margin:10, marginLeft: 70 , justifyContent: "center", alignItems: "center", borderRadius: 20, width: width*0.7, backgroundColor: '#343A40', height: 160 } }} >
                 
                         <RX.View style={{ justifyContent: 'center', alignItems: 'center', }}>
@@ -479,7 +488,7 @@ const _confirmDeleteDialogId = 'delete';
                                           
                         </RX.View>
                        
-                      </UI.Paper>
+                      </UI.Paper>}
                 
                         </RX.View>
                         
@@ -495,4 +504,5 @@ import { useEffect, useState } from 'react';
 import { SiOpenaccess } from '@react-icons/all-files/si/SiOpenaccess';
 import CurrentUserStore from '../stores/CurrentUserStore';
 import SimpleDialog from '../controls/SimpleDialog';
+import { userInfo } from 'os';
 
