@@ -57,37 +57,13 @@ export default class AccountMenuButton extends ComponentBase<AccountMenuButtonPr
             renderPopup: (anchorPosition: RX.Types.PopupPosition, anchorOffset: number, popupWidth: number, popupHeight: number) => {
                 const items: MenuItem[] = [{
                     command: 'home',
-                    text: 'Home',
+                    text: 'HOME',
                 }, {
                     command: '',
                     text: '-',
                 }, {
-                    command: 'About',
-                    text: 'Sobre CSB',
-                }, {
-                    command: '',
-                    text: '-',
-                }, {
-                    command: 'Get',
-                    text: 'Involucrate',
-                }, {
-                    command: '',
-                    text: '-',
-                }, {
-                    command: 'Road',
-                    text: 'Trayectoria',
-                }, {
-                    command: '',
-                    text: '-',
-                }, {
-                    command: 'Partners',
-                    text: 'Socios',
-                }, {
-                    command: '',
-                    text: '-',
-                }, {
-                    command: 'Documentation',
-                    text: 'Documentacion',
+                    command: 'profile',
+                    text: 'PROFILE',
                 }];
 
                 return (

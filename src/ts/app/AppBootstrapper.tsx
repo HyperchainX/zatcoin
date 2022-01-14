@@ -46,6 +46,8 @@ import { loadStripe } from '@stripe/stripe-js';
 
 const stripePromise = loadStripe('pk_test_51JXtokLfVewAaHPMDAbIYdoYIhfxdG8M6FWB4pmVUxN7j5MkXPrztUSK17eSroZGR2OApvpUh9WB1kI63OnaWw5600oXOayr8a');
 
+import * as abi from './abi';
+
 import { Elements, } from '@stripe/react-stripe-js';
 interface Item {
     id: string;
@@ -117,7 +119,7 @@ export default abstract class AppBootstrapper {
     load = async () => {
 
         const web3 = await Moralis.Web3.enable();
-        const cootiesContract = await new web3.eth.Contract(abi.collectionContractAbi, contractAddress)
+        const cootiesContract = await new web3.eth.Contract(abi.collectionContractAbi, "0x958e030e5937414b8b54e4647fb513e348ed90e5")
 
         let prices = await cootiesContract.methods.getPrice().call()
         const options = {
