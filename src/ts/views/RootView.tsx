@@ -40,6 +40,7 @@ interface RootViewState {
     lenguage: string
     isSideMenu: boolean;
     owner: string;
+    showSideMenu:boolean;
     price:number;
     ownerId: number;
     username: string;
@@ -107,6 +108,7 @@ export default class RootView extends ComponentBase<RootViewProps, RootViewState
             lenguage: CurrentUserStore.getLenguage(),
             owner: CurrentUserStore.getOwner(),
             ownerId: CurrentUserStore.getOwnerId(),
+            showSideMenu: CurrentUserStore.getSideMenu(),
             isLogin: CurrentUserStore.getLogin(),
             username: CurrentUserStore.getUserName(),
             width: ResponsiveWidthStore.getWidth(),
@@ -307,7 +309,7 @@ const tokenMetadata = await Moralis.Web3API.token.getTokenMetadata(options2);
             case NavModels.NavViewId.Partner:
                 return <PartnerHook isStackNav={this.state.isStackNav} len={this.state.lenguage} />;
             case NavModels.NavViewId.About:
-                return <AboutHook isConnected={this.state.isConnected}  isLogin={this.state.isLogin}  isStackNav={this.state.isStackNav} len={this.state.lenguage} entries={[]} width={this.state.width} />;
+                return <AboutHook showSideMenu={this.state.showSideMenu} isConnected={this.state.isConnected}  isLogin={this.state.isLogin}  isStackNav={this.state.isStackNav} len={this.state.lenguage} entries={[]} width={this.state.width} />;
             case NavModels.NavViewId.Involve:
                 return <InvolveHook isStackNav={this.state.isStackNav} len={this.state.lenguage} entries={[]} width={this.state.width} />;
             case NavModels.NavViewId.Road:
@@ -323,7 +325,7 @@ const tokenMetadata = await Moralis.Web3API.token.getTokenMetadata(options2);
             case NavModels.NavViewId.Chats:
                 return <ChatPanel isLogin={this.state.isLogin} ownerId={this.state.ownerId} userId={this.state.user.userId} />;
             case NavModels.NavViewId.Home:
-                return <HomeHook price={this.state.price}  len={this.state.lenguage} width={this.state.width} isStackNav={this.state.isStackNav} entries={this.state.entries} />;
+                return <HomeHook showSideMenu={this.state.showSideMenu} price={this.state.price}  len={this.state.lenguage} width={this.state.width} isStackNav={this.state.isStackNav} entries={this.state.entries} />;
             case NavModels.NavViewId.ViewTodo:
                 const viewContext = this._findNavContextForRoute(viewId) as NavModels.ViewTodoViewNavContext;
                 if (!viewContext) {
@@ -331,7 +333,7 @@ const tokenMetadata = await Moralis.Web3API.token.getTokenMetadata(options2);
                 }
                 return <ViewTodoPanel todoId={viewContext.todoId} />;
             default:
-                return <HomeHook price={this.state.price}  len={this.state.lenguage} width={this.state.width} isStackNav={this.state.isStackNav} entries={this.state.entries} />;
+                return <HomeHook showSideMenu={this.state.showSideMenu} price={this.state.price}  len={this.state.lenguage} width={this.state.width} isStackNav={this.state.isStackNav} entries={this.state.entries} />;
         }
     }
 

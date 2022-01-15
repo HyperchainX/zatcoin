@@ -42,6 +42,27 @@ const _styles = {
     fontSize: 16,
     color: 'white',
     alignSelf: 'center'
+  }),  
+  titleStylewww: RX.Styles.createTextStyle({
+    font: Fonts.displayBold,
+    fontSize: 18,
+    textAlign: 'center',
+    color: '#0D6EFD',
+    alignSelf: 'center'
+  }),
+  titleStyleww: RX.Styles.createTextStyle({
+    font: Fonts.displayBold,
+    fontSize: 18,
+    textAlign: 'center',
+    color: '#343A40',
+    alignSelf: 'center'
+  }),
+  titleStylew: RX.Styles.createTextStyle({
+    font: Fonts.displayBold,
+    fontSize: 42,
+    textAlign: 'center',
+    color: 'white',
+    alignSelf: 'center'
   }),
   titleStyle: RX.Styles.createTextStyle({
     font: Fonts.displayRegular,
@@ -228,10 +249,12 @@ export const AboutHook = ({
   isStackNav,
   width,
   isConnected,
+  showSideMenu,
   len,
 }: {
   entries: Entries[];
   width: number;
+  showSideMenu:boolean,
   
   isConnected:boolean;
   isStackNav: boolean;
@@ -239,6 +262,17 @@ export const AboutHook = ({
   isLogin:boolean;
 }) => {
 
+  
+  async function onLogOut() {
+
+
+    CurrentUserStore.setLogin(false)
+    CurrentUserStore.setUser('', '', '', '', '', '', '')
+
+
+    NavContextStore.navigateToTodoList(undefined, false, false,false,true)
+    await Moralis.User.logOut();
+}
   async function _onPressTodo() {
     setCargando(true)
     await Moralis.enableWeb3()
@@ -381,7 +415,7 @@ const _confirmDeleteDialogId = 'delete';
     console.log("storage " + JSON.stringify(RX.Storage.getItem('pay')))
   }, [])
   return (<RX.View style={{ flex: 1, alignSelf:'stretch',justifyContent:'center',alignItems:'center',backgroundColor: '#212529' }} >
-                       <RX.View style={{ flexDirection: 'row', width:900,marginTop:30,justifyContent: 'flex-start', alignItems: 'center',alignSelf:"center", }}>
+                       <RX.View style={{ flexDirection: 'row', width:showSideMenu?1000: 1200,marginTop:30,justifyContent: 'flex-start', alignItems: 'center',alignSelf:"center", }}>
   <RX.Image source={ImageSource.vector8} style={{     marginRight:10,width: 15, height: 15, }} />
         
     <RX.Text style={[_styles.titleStyleBig, {alignSelf: 'flex-start', }]} >
@@ -389,11 +423,11 @@ const _confirmDeleteDialogId = 'delete';
     </RX.Text>
     
     </RX.View>
-  {isLogin === false ?
+  {isLogin === false ? 
   <RX.View style={{ flex:1,alignSelf: 'stretch',marginTop: 0, paddingBottom: 20, marginBottom: 10, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-    <RX.View style={{ position:'relative',marginBottom: 30, height: 300, width: width*0.72, justifyContent: 'center', alignItems: 'center', alignSelf: 'flex-start', }}>
+    <RX.View style={{ position:'relative',marginBottom: 30, height: 300, width: showSideMenu? width*0.7:  width*0.8, justifyContent: 'center', alignItems: 'center', alignSelf: 'flex-start', }}>
 
-      <UI.Paper elevation={10} style={{ root: {margin:10,elevation: 0, position: 'absolute', justifyContent: "center", alignItems: "center", borderRadius: 20, width: width*0.7, backgroundColor: '#343A40', height: 250 } }} >
+      <UI.Paper elevation={10} style={{ root: {margin:10,elevation: 0, position: 'absolute', justifyContent: "center", alignItems: "center", borderRadius: 20, width:showSideMenu? width*0.7:  width*0.75, backgroundColor: '#343A40', height: 250 } }} >
 
         <RX.View style={{ justifyContent: 'center', alignItems: 'center', }}>
 
@@ -411,9 +445,9 @@ const _confirmDeleteDialogId = 'delete';
       </UI.Paper>
     </RX.View>
 
-  </RX.View>  :  <RX.View style={{  flex:1,alignSelf:'stretch',justifyContent: 'flex-start', alignItems: 'center' }}>
+  </RX.View>  :  <RX.View style={{  flex:1,alignSelf:'stretch',justifyContent: 'center', alignItems: 'center' }}>
                          
-                            <UI.Paper elevation={10} style={{ root: {margin:10, marginLeft: 70 ,justifyContent: "center", alignItems: "center", borderRadius: 20, width: width*0.7, backgroundColor: '#343A40', height: 400 } }} >
+                            <UI.Paper elevation={10} style={{ root: {margin:10, justifyContent: "center", alignItems: "center", borderRadius: 20, width: showSideMenu? width*0.7:  width*0.75, backgroundColor: '#343A40', height: 420 } }} >
                       
                               <RX.View style={{ justifyContent: 'center', alignItems: 'center', }}>
                       
@@ -464,19 +498,148 @@ const _confirmDeleteDialogId = 'delete';
 
                               </RX.View>      
                               </RX.View>
-                              <UI.Button onPress={_onPressModal}  style={{ content: [{ marginTop:20,marginBottom:20,width: 160, borderWidth:0,borderRadius: 11,backgroundColor:'#DC3545', }], label: _styles.label }
+                              <UI.Button onPress={onLogOut}  style={{ content: [{ marginTop:20,marginBottom:20,width: 160, borderWidth:0,borderRadius: 11,backgroundColor:'#DC3545', }], label: _styles.label }
                                             } elevation={4} variant={"outlined"} label="Disconnect" />
                             </UI.Paper>
                          
-                            {isConnected==true?null:
+                            {isConnected==true?
+                            <RX.View style={{justifyContent:'center',alignItems:'center',flexDirection:'row',marginBottom:20,width:showSideMenu? width*0.8:  width*0.85}}>
+                          <UI.Paper elevation={10} style={{ root: {margin:10, justifyContent: "center", alignItems: "center", borderRadius: 20, width: 300, backgroundColor: '#0DCAF0', height: 200 } }} >
+                
+
+                <RX.View style={{ flexDirection: 'row', width:250,height:30,marginTop:30,marginBottom:10,justifyContent: 'center', alignItems: 'center',alignSelf:"center", }}>
+                      
+                       <RX.Image source={ImageSource.vector9} style={{marginRight:10,width: 20, height: 20, }} />
+        
+<RX.Text style={[_styles.titleStyle5, {width:165 ,fontSize:20,height:30,color:'#343A40',alignSelf: 'center', marginRight: 0,}]} >
+{"ZATCOIN TIMER"}
+</RX.Text>
+
+    </RX.View>
+
+    <RX.View style={{ flex:1,alignSelf:'stretch',justifyContent: 'center', alignItems: 'center', height:140,marginBottom:20}}>
+             
+
+<RX.Text style={[_styles.titleStylew, { width:150,height:50,alignSelf: 'center', marginRight: 0, marginBottom: 10 }]} >
+{"16:00"}
+</RX.Text>
+
+<RX.Text style={[_styles.titleStyleww, {  width:100,height:30,alignSelf: 'center', marginRight: 0, marginBottom: 0 }]} >
+{"HOUR"}
+</RX.Text>
+<RX.Text style={[_styles.titleStylewww, { width:100,height:30,alignSelf: 'center', marginRight: 0, marginBottom: 10 }]} >
+{"UTC"}
+</RX.Text>
+</RX.View> 
+                    
+        
+               
+              </UI.Paper>
+              
+              <UI.Paper elevation={10} style={{ root: {margin:10, justifyContent: "center", alignItems: "center", borderRadius: 20, width: 300, backgroundColor: '#0DCAF0', height: 200 } }} >
+                
+
+                <RX.View style={{ flexDirection: 'row', width:250,height:30,marginTop:30,marginBottom:10,justifyContent: 'center', alignItems: 'center',alignSelf:"center", }}>
+                      
+                       <RX.Image source={ImageSource.vector11} style={{marginRight:10,width: 20, height: 20, }} />
+        
+<RX.Text style={[_styles.titleStyle5, {width:220 ,fontSize:20,height:30,color:'#343A40',alignSelf: 'center', marginRight: 0,}]} >
+{"REGISTERED BALANCE"}
+</RX.Text>
+
+    </RX.View>
+
+    <RX.View style={{ flex:1,alignSelf:'stretch',justifyContent: 'center', alignItems: 'center', height:140,marginBottom:20}}>
+             
+
+<RX.Text style={[_styles.titleStylew, { width:150,height:50,alignSelf: 'center', marginRight: 0, marginBottom: 10 }]} >
+{"73"}
+</RX.Text>
+
+<RX.Text style={[_styles.titleStyleww, {  width:100,height:30,alignSelf: 'center', marginRight: 0, marginBottom: 0 }]} >
+{"ZATCOIN"}
+</RX.Text>
+<RX.Text style={[_styles.titleStylewww, { width:100,height:30,alignSelf: 'center', marginRight: 0, marginBottom: 10 }]} >
+{"32 US$"}
+</RX.Text>
+</RX.View> 
+                    
+        
+               
+              </UI.Paper>
+
+              <UI.Paper elevation={10} style={{ root: {margin:10, justifyContent: "center", alignItems: "center", borderRadius: 20, width: 300, backgroundColor: '#0DCAF0', height: 200 } }} >
+                
+
+                <RX.View style={{ flexDirection: 'row', width:250,height:30,marginTop:30,marginBottom:10,justifyContent: 'center', alignItems: 'center',alignSelf:"center", }}>
+                      
+                       <RX.Image source={ImageSource.vector12} style={{marginRight:10,width: 20, height: 20, }} />
+        
+<RX.Text style={[_styles.titleStyle5, {width:180 ,fontSize:20,height:30,color:'#343A40',alignSelf: 'center', marginRight: 0,}]} >
+{"TODAY´S REWARD"}
+</RX.Text>
+
+    </RX.View>
+
+    <RX.View style={{ flex:1,alignSelf:'stretch',justifyContent: 'center', alignItems: 'center', height:140,marginBottom:20}}>
+             
+
+<RX.Text style={[_styles.titleStylew, { width:150,height:50,alignSelf: 'center', marginRight: 0, marginBottom: 10 }]} >
+{"273"}
+</RX.Text>
+
+<RX.Text style={[_styles.titleStyleww, {  width:100,height:30,alignSelf: 'center', marginRight: 0, marginBottom: 0 }]} >
+{"ZATCOIN"}
+</RX.Text>
+<RX.Text style={[_styles.titleStylewww, { width:100,height:30,alignSelf: 'center', marginRight: 0, marginBottom: 10 }]} >
+{"^ 10%"}
+</RX.Text>
+</RX.View> 
+                    
+        
+               
+              </UI.Paper>
+
+                       <UI.Paper elevation={10} style={{ root: {margin:10, justifyContent: "center", alignItems: "center", borderRadius: 20, width: 300, backgroundColor: '#0DCAF0', height: 200 } }} >
+                
+
+                <RX.View style={{ flexDirection: 'row', width:250,height:30,marginTop:30,marginBottom:10,justifyContent: 'center', alignItems: 'center',alignSelf:"center", }}>
+                      
+                       <RX.Image source={ImageSource.vector13} style={{marginRight:10,width: 20, height: 20, }} />
+        
+<RX.Text style={[_styles.titleStyle5, {width:165 ,fontSize:20,height:30,color:'#343A40',alignSelf: 'center', marginRight: 0,}]} >
+{"TOTAL REWARD"}
+</RX.Text>
+
+    </RX.View>
+
+    <RX.View style={{ flex:1,alignSelf:'stretch',justifyContent: 'center', alignItems: 'center', height:140,marginBottom:20}}>
+             
+
+<RX.Text style={[_styles.titleStylew, { width:150,height:50,alignSelf: 'center', marginRight: 0, marginBottom: 10 }]} >
+{"349"}
+</RX.Text>
+
+<RX.Text style={[_styles.titleStyleww, {  width:100,height:30,alignSelf: 'center', marginRight: 0, marginBottom: 0 }]} >
+{"ZATCOIN"}
+</RX.Text>
+<RX.Text style={[_styles.titleStylewww, { width:100,height:30,alignSelf: 'center', marginRight: 0, marginBottom: 10 }]} >
+{"466 US$"}
+</RX.Text>
+</RX.View> 
+                    
+        
+               
+              </UI.Paper>
+              </RX.View> :
  
-                      <UI.Paper elevation={10} style={{ root: {margin:10, marginLeft: 70 , justifyContent: "center", alignItems: "center", borderRadius: 20, width: width*0.7, backgroundColor: '#343A40', height: 160 } }} >
+                      <UI.Paper elevation={10} style={{ root: {margin:10, justifyContent: "center", alignItems: "center", borderRadius: 20, width: showSideMenu? width*0.6:  width*0.75, backgroundColor: '#0DCAF0', height: 160 } }} >
                 
                         <RX.View style={{ justifyContent: 'center', alignItems: 'center', }}>
                 
                             
                 
-                            <RX.Text style={[_styles.titleStyle, { textAlign:'center',alignSelf: 'center', marginRight: 0, marginTop:20,marginBottom: 10 }]} >
+                            <RX.Text style={[_styles.titleStyle, {textAlign:'center',alignSelf: 'center', marginRight: 0, marginTop:20,marginBottom: 10 }]} >
                               {"This wallet is not registered in Zatcoin yet."}
                             </RX.Text>
                            
@@ -505,4 +668,5 @@ import { SiOpenaccess } from '@react-icons/all-files/si/SiOpenaccess';
 import CurrentUserStore from '../stores/CurrentUserStore';
 import SimpleDialog from '../controls/SimpleDialog';
 import { userInfo } from 'os';
+import NavContextStore from '../stores/NavContextStore';
 
