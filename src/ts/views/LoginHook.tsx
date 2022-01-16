@@ -247,7 +247,6 @@ export const LoginHook = ({
       let avatar = currentUser.get('avatar')
       setCargando(false)
       console.log('aasdasd ' + avatar)
-      CurrentUserStore.setUser(username, email, createdAt, '', updatedAt, avatar, currentUser.get('ethAddress'))
 
       SimpleDialog.dismissAnimated('delete')
     } else {
@@ -388,7 +387,6 @@ export const LoginHook = ({
         setCargando(false)
         CurrentUserStore.setLogin(true)
         CurrentUserStore.setConnect(true)
-        CurrentUserStore.setUser(username, email, createdAt, "", updatedAt, avatar, user.get('ethAddress'))
         SimpleDialog.dismissAnimated(_confirmDeleteDialogId)
       }
 
@@ -411,26 +409,7 @@ export const LoginHook = ({
 
 
       await Moralis.authenticate().then(async (user: any) => {
-        let username = user.get('username')
-        let createdAt = user.get('createdAt')
-        let updatedAt = user.get('updatedAt')
-        let address = user.get('ethAddress')
-        const chainId = await Moralis.getChainId();
-
-
-        let avatar = user.get('avatar')
-        if (avatar === undefined) {
-          CurrentUserStore.setUser(username, '', createdAt, '', updatedAt, '', address)
-        } else {
-          CurrentUserStore.setUser(username, '', createdAt, '', updatedAt, avatar, address)
-        }
-        if (address === '0xfd2b6f391066d8eafa910fe73ea90c197c21d338' || address === '0x069dffd8d5e00952d956aef824d3e3dcdadeea63' || address === '0X069DFFD8D5E00952D956AEF824D3E3DCDADEEA63' || address === '0x5e569bbc0a04f1b01cb76905f40557647536e6b1') {
-
-          await CurrentUserStore.setIsAdmin(true)
-
-        } else {
-          await CurrentUserStore.setIsAdmin(false)
-        }
+      
 
 
         CurrentUserStore.setConnect(true)
@@ -482,7 +461,6 @@ console.log(result)
         setCargando(false)
         setAvatar(true)
         CurrentUserStore.setConnect(true)
-        CurrentUserStore.setUser(username, email, createdAt, "", updatedAt, avatar, eth)
 
         SimpleDialog.dismissAnimated(_confirmDeleteDialogId)
         // Hooray! Let them use the app now.

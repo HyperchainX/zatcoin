@@ -153,6 +153,7 @@ export default abstract class AppBootstrapper {
       console.log(balanceOf);
 console.log("burn "+balanceOf)
 CurrentUserStore.setBurn(parseFloat(balanceOf))
+CurrentUserStore.setTotalSupply(totalSupply)
 CurrentUserStore.setSupply(totalSupply-parseFloat(balanceOf))
 const optionsCo = { chain: "bsc", block_number_or_hash: "0" };
 
@@ -174,7 +175,6 @@ let covalent=await Moralis.Plugins.covalent.getChangesInTokenHolerBetweenBlockHe
 console.log("covalent"+JSON.stringify(covalent))
 
 CurrentUserStore.setHolders(covalent.data.items.length)
-CurrentUserStore.setTotalSupply(totalSupply)
     }
     loadChats = async (username: string) => {
 

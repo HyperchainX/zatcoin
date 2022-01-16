@@ -61,7 +61,7 @@ const _styles = {
   }),
   titleStylew: RX.Styles.createTextStyle({
     font: Fonts.displayBold,
-    fontSize: 42,
+    fontSize: 18,
     textAlign: 'center',
     color: 'white',
     alignSelf: 'center',
@@ -446,7 +446,7 @@ const _confirmDeleteDialogId = 'delete';
   : 
    <RX.View style={{  flex:1,alignSelf:'stretch',justifyContent: 'center', alignItems: 'center' }}>
                          
-                            <UI.Paper elevation={10} style={{ root: {margin:10, justifyContent: "center", alignItems: "center", borderRadius: 20, width: showSideMenu? width*0.7:  width*0.75, backgroundColor: '#343A40', height: 350 } }} >
+                            <UI.Paper elevation={10} style={{ root: {margin:10, justifyContent: "center", alignItems: "center", borderRadius: 20, width: showSideMenu? width*0.7:  width*0.75, backgroundColor: '#343A40', height: 280 } }} >
                       
                               <RX.View style={{ justifyContent: 'center', alignItems: 'center', }}>
                       
@@ -457,49 +457,7 @@ const _confirmDeleteDialogId = 'delete';
                                     {"YOU ARE A SHRIMP INVESTOR"}
                                   </RX.Text>
                                   
-                                  <RX.View style={{ flexDirection:"row",marginTop:20,justifyContent: 'center', alignItems: 'center', }}>
-                                  <RX.View style={{marginRight:30,marginLeft:30,justifyContent: 'center', alignItems: 'center', }}>
-
-                                  <RX.Text style={[_styles.titleStyle5, { alignSelf: 'center', marginRight: 20, marginTop: 10, marginBottom: 10 }]} >
-                                  {"WALLET ADDRESS"}
-                                </RX.Text>
-
-                                <RX.Text style={[_styles.titleStylewa, { alignSelf: 'center', marginRight: 20, marginBottom: 10 }]} >
-                                  { user.ethAddress.substring(0, 5).toUpperCase() + '...' + user.ethAddress.substring(user.ethAddress.length - 3, user.ethAddress.length).toUpperCase()}
-                                </RX.Text>
-                              </RX.View>  
-                              <RX.View style={{marginRight:30,marginLeft:30,justifyContent: 'center', alignItems: 'center', }}>
-
-                              <RX.Text style={[_styles.titleStyle5, { alignSelf: 'center', marginRight: 20, marginTop: 10, marginBottom: 10 }]} >
-                              {"BNB BALANCE"}
-                              </RX.Text>
-
-                              <RX.Text style={[_styles.titleStyle, { alignSelf: 'center', marginRight: 20, marginBottom: 10 }]} >
-                              {user.balance.balance.toString()+" BNB"}
-                              </RX.Text>
-                              
-              </RX.View>  
-
-                  <RX.View style={{ marginRight:30,marginLeft:30,justifyContent: 'center', alignItems: 'center', }}>
-
-              <RX.Text style={[_styles.titleStyle5, { alignSelf: 'center', marginRight: 20, marginTop: 10, marginBottom: 10 }]} >
-              {"ZATCOIN BALANCE"}
-              </RX.Text>
-              <RX.Text style={[_styles.titleStyle, { alignSelf: 'center', marginRight: 20, marginBottom: 10 }]} >
-              {(user.zatcoin.length==0?0:user.zatcoin[0].balance)+" ZATCOINS"}
-              </RX.Text>
-              </RX.View>     
-                  <RX.View style={{marginRight:30,marginLeft:30,justifyContent: 'center', alignItems: 'center', }}>
-
-              <RX.Text style={[_styles.titleStyle5, { alignSelf: 'center', marginRight: 20, marginTop: 10, marginBottom: 10 }]} >
-              {"ZATCOIN STATUS"}
-              </RX.Text>
-              <RX.Text style={[_styles.titleStyle, { alignSelf: 'center', marginRight: 20, marginBottom: 10 }]} >
-              {isConnected==true?"Registered Account":"Not Registered"}
-              </RX.Text>
-              </RX.View>   
-
-                              </RX.View>      
+                                
                               </RX.View>
                               <UI.Button onPress={onLogOut}  style={{ content: [{ marginTop:20,marginBottom:20,width: 160, borderWidth:0,borderRadius: 11,backgroundColor:'#DC3545', }], label: _styles.label }
                                             } elevation={4} variant={"outlined"} label="Disconnect" />
@@ -514,8 +472,8 @@ const _confirmDeleteDialogId = 'delete';
                       
                        <RX.Image source={ImageSource.vector9} style={{marginRight:10,width: 20, height: 20, }} />
                                 
-                        <RX.Text style={[_styles.titleStyle5, {width:165 ,fontSize:20,height:30,color:'#343A40',alignSelf: 'center', marginRight: 0,}]} >
-                        {"ZATCOIN TIMER"}
+                        <RX.Text style={[_styles.titleStyle5, {width:200 ,fontSize:20,height:30,color:'#343A40',alignSelf: 'center', marginRight: 0,}]} >
+                        {"WALLET ADDRESS"}
                         </RX.Text>
 
                     </RX.View>
@@ -524,15 +482,11 @@ const _confirmDeleteDialogId = 'delete';
                             
 
                 <RX.Text style={[_styles.titleStylew, { width:150,height:50,alignSelf: 'center', marginRight: 0, marginBottom: 10 }]} >
-                {"16:00"}
+                { user.ethAddress.substring(0, 5).toUpperCase() + '...' + user.ethAddress.substring(user.ethAddress.length - 3, user.ethAddress.length).toUpperCase()}
+                             
                 </RX.Text>
 
-                <RX.Text style={[_styles.titleStyleww, {  width:100,height:30,alignSelf: 'center', marginRight: 0, marginBottom: 0 }]} >
-                {"HOUR"}
-                </RX.Text>
-                <RX.Text style={[_styles.titleStylewww, { width:100,height:30,alignSelf: 'center', marginRight: 0, marginBottom: 10 }]} >
-                {"UTC"}
-                </RX.Text>
+              
                 </RX.View> 
                
               </UI.Paper>
@@ -544,8 +498,8 @@ const _confirmDeleteDialogId = 'delete';
                       
                        <RX.Image source={ImageSource.vector11} style={{marginRight:10,width: 20, height: 20, }} />
         
-<RX.Text style={[_styles.titleStyle5, {width:220 ,fontSize:20,height:30,color:'#343A40',alignSelf: 'center', marginRight: 0,}]} >
-{"REGISTERED BALANCE"}
+<RX.Text style={[_styles.titleStyle5, {width:200 ,fontSize:20,height:30,color:'#343A40',alignSelf: 'center', marginRight: 0,}]}>
+{"BNB BALANCE"}
 </RX.Text>
 
     </RX.View>
@@ -553,15 +507,9 @@ const _confirmDeleteDialogId = 'delete';
     <RX.View style={{ flex:1,alignSelf:'stretch',justifyContent: 'center', alignItems: 'center', height:140,marginBottom:20}}>
 
 <RX.Text style={[_styles.titleStylew, { width:150,height:50,alignSelf: 'center', marginRight: 0, marginBottom: 10 }]} >
-{"73"}
+{user.balance.balance.toString()+" BNB"}
 </RX.Text>
 
-<RX.Text style={[_styles.titleStyleww, {  width:100,height:30,alignSelf: 'center', marginRight: 0, marginBottom: 0 }]} >
-{"ZATCOIN"}
-</RX.Text>
-<RX.Text style={[_styles.titleStylewww, { width:100,height:30,alignSelf: 'center', marginRight: 0, marginBottom: 10 }]} >
-{"32 US$"}
-</RX.Text>
 </RX.View> 
               </UI.Paper>
 
@@ -572,23 +520,18 @@ const _confirmDeleteDialogId = 'delete';
                       
                        <RX.Image source={ImageSource.vector12} style={{marginRight:10,width: 20, height: 20, }} />
         
-<RX.Text style={[_styles.titleStyle5, {width:180 ,fontSize:20,height:30,color:'#343A40',alignSelf: 'center', marginRight: 0,}]} >
-{"TODAY´S REWARD"}
+<RX.Text style={[_styles.titleStyle5, {width:210 ,fontSize:20,height:30,color:'#343A40',alignSelf: 'center', marginRight: 0,}]} >
+{"ZAT COIN BALANCE"}
 </RX.Text>
 
     </RX.View>
 
     <RX.View style={{ flex:1,alignSelf:'stretch',justifyContent: 'center', alignItems: 'center', height:140,marginBottom:20}}>
 <RX.Text style={[_styles.titleStylew, { width:150,height:50,alignSelf: 'center', marginRight: 0, marginBottom: 10 }]} >
-{"273"}
+{(user.zatcoin.length==0?0:user.zatcoin[0].balance)+" ZATCOIN"}
+              
 </RX.Text>
 
-<RX.Text style={[_styles.titleStyleww, {  width:100,height:30,alignSelf: 'center', marginRight: 0, marginBottom: 0 }]} >
-{"ZATCOIN"}
-</RX.Text>
-<RX.Text style={[_styles.titleStylewww, { width:100,height:30,alignSelf: 'center', marginRight: 0, marginBottom: 10 }]} >
-{"^ 10%"}
-</RX.Text>
 </RX.View> 
                     
         
@@ -602,8 +545,8 @@ const _confirmDeleteDialogId = 'delete';
                       
                        <RX.Image source={ImageSource.vector13} style={{marginRight:10,width: 20, height: 20, }} />
         
-<RX.Text style={[_styles.titleStyle5, {width:165 ,fontSize:20,height:30,color:'#343A40',alignSelf: 'center', marginRight: 0,}]} >
-{"TOTAL REWARD"}
+<RX.Text style={[_styles.titleStyle5, {width:210 ,fontSize:20,height:30,color:'#343A40',alignSelf: 'center', marginRight: 0,}]} >
+{"ZAT COIN STATUS"}
 </RX.Text>
 
     </RX.View>
@@ -612,15 +555,10 @@ const _confirmDeleteDialogId = 'delete';
              
 
 <RX.Text style={[_styles.titleStylew, { width:150,height:50,alignSelf: 'center', marginRight: 0, marginBottom: 10 }]} >
-{"349"}
+{isConnected==true?"Registered Account":"Not Registered"}
+           
 </RX.Text>
 
-<RX.Text style={[_styles.titleStyleww, {  width:100,height:30,alignSelf: 'center', marginRight: 0, marginBottom: 0 }]} >
-{"ZATCOIN"}
-</RX.Text>
-<RX.Text style={[_styles.titleStylewww, { width:100,height:30,alignSelf: 'center', marginRight: 0, marginBottom: 10 }]} >
-{"466 US$"}
-</RX.Text>
 </RX.View> 
                     
         
