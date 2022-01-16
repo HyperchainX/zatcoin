@@ -296,7 +296,7 @@ export const LoginHook = ({
     <RX.View style={_styles.contentContainer}>
       <RX.View style={{ alignSelf: 'center', justifyContent: 'center', alignItems: 'center' }}>
 
-   <RX.View style={{ alignSelf: 'center', justifyContent: 'center', alignItems: 'center' }}>
+   <RX.View style={{ alignSelf: 'center', marginTop:20,justifyContent: 'center', alignItems: 'center' }}>
           <RX.Text style={_styles.titleStyle}>{'Register'}
           </RX.Text>
           <RX.View style={{ justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>

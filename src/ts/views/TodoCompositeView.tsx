@@ -72,6 +72,7 @@ interface TodoCompositeViewState {
     isConnected:boolean;
     navId: string;
     supply:number;
+    isTiny:boolean;
     user:any,
     holders:number;
     totalSupply:number;
@@ -111,6 +112,7 @@ import { TermsHook } from './TermsHook';
 import ChatPanel from './ChatPanel';
 import { RechargeHook } from './RechargeHook';
 import { StripeHook } from './StripeHook';
+import ResponsiveWidthStore from '../stores/ResponsiveWidthStore';
 
 export default class TodoCompositeView extends ComponentBase<TodoCompositeViewProps, TodoCompositeViewState> {
     protected _buildState(props: TodoCompositeViewProps, initState: boolean): Partial<TodoCompositeViewState> | undefined {
@@ -122,6 +124,7 @@ export default class TodoCompositeView extends ComponentBase<TodoCompositeViewPr
             burn: CurrentUserStore.getBurn(),
             user: CurrentUserStore.getUser(),
             holders:CurrentUserStore.getHolders(),
+            isTiny:ResponsiveWidthStore.isSmallOrTinyScreenSize(),
             supply:CurrentUserStore.getSupply(),
             totalSupply:CurrentUserStore.getTotalSupply(),
 
@@ -157,7 +160,7 @@ export default class TodoCompositeView extends ComponentBase<TodoCompositeViewPr
             );
         } else if (this.props.navContext.showHomePanel) {
             return (
-                <HomeHook supply={this.state.supply} holders={this.state.holders}  totalSupply={this.state.totalSupply}  burn={this.state.burn}  showSideMenu={this.props.showSideMenu} price={this.state.price} len={this.props.lenguage} width={this.props.width} isStackNav={this.props.isStackNav} entries={this.props.entries} />
+                <HomeHook supply={this.state.supply} isTiny={this.state.isTiny} holders={this.state.holders}  totalSupply={this.state.totalSupply}  burn={this.state.burn}  showSideMenu={this.props.showSideMenu} price={this.state.price} len={this.props.lenguage} width={this.props.width} isStackNav={this.props.isStackNav} entries={this.props.entries} />
             );
         } else if (this.props.navContext.todoList.selectedTodoId) {
             return (
@@ -165,7 +168,7 @@ export default class TodoCompositeView extends ComponentBase<TodoCompositeViewPr
             );
         } else if (this.props.navContext.showAbout) {
             return (
-                <AboutHook user={this.state.user} showSideMenu={this.props.showSideMenu}  isConnected={this.state.isConnected} isLogin={this.props.isLogin} isStackNav={this.props.isStackNav} len={this.props.lenguage} entries={[]} width={this.props.width} />
+                <AboutHook isTiny={this.state.isTiny}  user={this.state.user} showSideMenu={this.props.showSideMenu}  isConnected={this.state.isConnected} isLogin={this.props.isLogin} isStackNav={this.props.isStackNav} len={this.props.lenguage} entries={[]} width={this.props.width} />
             );
         } else if (this.props.navContext.showInvolve) {
             return (
@@ -204,7 +207,7 @@ export default class TodoCompositeView extends ComponentBase<TodoCompositeViewPr
                 <ChatPanel isLogin={this.props.isLogin} ownerId={this.props.ownerId} userId={this.props.user.userId} />
             );
         } else {
-            return <HomeHook totalSupply={this.state.totalSupply} holders={this.state.holders}  burn={this.state.burn} supply={this.state.supply}  showSideMenu={this.props.showSideMenu} price={this.state.price}  len={this.props.lenguage} width={this.props.width} isStackNav={this.props.isStackNav} entries={this.props.entries} />;
+            return <HomeHook isTiny={this.state.isTiny} totalSupply={this.state.totalSupply} holders={this.state.holders}  burn={this.state.burn} supply={this.state.supply}  showSideMenu={this.props.showSideMenu} price={this.state.price}  len={this.props.lenguage} width={this.props.width} isStackNav={this.props.isStackNav} entries={this.props.entries} />;
         }
     }
 

@@ -39,16 +39,22 @@ interface MenuState {
 
 const _styles = {
     menuContainer: RX.Styles.createViewStyle({
-        backgroundColor: Colors.menuBackground,
+        backgroundColor:'212529',
         borderWidth: 1,
+        justifyContent:'center',
+        alignItems:'center',
+    flex:1,
+    alignSelf:'stretch',
         borderStyle: 'solid',
         borderColor: Colors.menuBorder,
     }),
     menuItemContainer: RX.Styles.createButtonStyle({
-        minHeight: 30,
+        minHeight: 100,
+        paddingTop:30,
         alignItems: 'center',
-        marginHorizontal: 10,
-        justifyContent: 'flex-start',
+        flex:1,
+        alignSelf:'stretch',
+        justifyContent: 'center',
         flexDirection: 'row',
     }),
     menuItemHover: RX.Styles.createButtonStyle({
@@ -56,21 +62,24 @@ const _styles = {
     }),
     menuItemText: RX.Styles.createTextStyle({
         flex: 1,
-        font: Fonts.displayRegular,
-        fontSize: FontSizes.size16,
-        color: Colors.menuText,
-        marginLeft: 16,
-        marginRight: 32,
+        font: Fonts.displayBold,
+        alignSelf:'stretch',
+        textAlign:'center',
+        fontSize: FontSizes.size20,
+        color: "white",
         marginVertical: 4,
     }),
     checkMarkText: RX.Styles.createTextStyle({
         font: Fonts.displayRegular,
         fontSize: FontSizes.size16,
+        textAlign:'center',
         marginRight: 16,
         color: Colors.menuText,
     }),
     disabledText: RX.Styles.createTextStyle({
         color: Colors.menuTextDisabled,
+        textAlign:'center',
+        font: Fonts.displayRegular,
     }),
     divider: RX.Styles.createViewStyle({
         height: 1,

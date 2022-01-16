@@ -33,6 +33,13 @@ const _styles = {
     color: 'white',
     alignSelf: 'center'
   }),
+  titleStyleTiny: RX.Styles.createTextStyle({
+    font: Fonts.displayBold,
+    fontSize: 16,
+    textAlign: 'left',
+    color: '#0DCAF0',
+    alignSelf: 'center'
+  }),
   titleStyle: RX.Styles.createTextStyle({
     font: Fonts.displayBold,
     fontSize: 22,
@@ -65,6 +72,12 @@ const _styles = {
     font: Fonts.displayBold,
     fontSize: 14,
     textAlign: "right",
+    color: 'white',
+    alignSelf: 'center'
+  }),
+  titleStyle5Tiny: RX.Styles.createTextStyle({
+    font: Fonts.displayBold,
+    fontSize: 12,
     color: 'white',
     alignSelf: 'center'
   }),
@@ -227,6 +240,7 @@ export const HomeHook = ({
   width,
   showSideMenu,
   len,
+  isTiny,
   holders,
   price,
   burn,
@@ -235,6 +249,7 @@ export const HomeHook = ({
 }: {
   entries: Entries[];
   width: number;
+  isTiny:boolean;
   holders: number;
   showSideMenu: boolean;
   isStackNav: boolean;
@@ -352,8 +367,18 @@ export const HomeHook = ({
   const [isPlaying, setPlaying] = useState(false)
   return (<RX.View style={{ flex: 1, alignSelf:'stretch',justifyContent:'center',alignItems:'center',backgroundColor: '#212529' }} >
                    
-                     <RX.View style={{width: 320, height: 180,borderRadius:12,marginTop:100,marginBottom:0}}>
-                                          
+                   { isTiny?  <RX.View style={{width: width*0.8, height: 180,borderRadius:12,marginTop:20,marginBottom:0}}>
+                      <RXVideo
+                            source={'https://res.cloudinary.com/indexcoorp/video/upload/v1642202319/FINAL_RENDER_001_1_tnklob.mp4'}
+                            style={{ width: width*0.8, height: 180,borderRadius:12, }}
+                            loop={true}        
+                            onCanPlay={_playVideo}
+                            showControls={false}
+                            ref={_onMountVideo}
+                          />  
+                    
+                      </RX.View> : <RX.View style={{width: 320, height: 180,borderRadius:12,marginTop:100,marginBottom:0}}>
+                              
                           <RXVideo
                             source={'https://res.cloudinary.com/indexcoorp/video/upload/v1642202319/FINAL_RENDER_001_1_tnklob.mp4'}
                             style={{ width: 320, height: 180,borderRadius:12, }}
@@ -363,53 +388,192 @@ export const HomeHook = ({
                             ref={_onMountVideo}
                           />
                     
-                      </RX.View>
+                      </RX.View>}
 
-
-                       <RX.View style={{ flexDirection: 'row', width:showSideMenu?1000: 1200,marginTop:0,justifyContent: 'flex-start', alignItems: 'center',alignSelf:"center", }}>
+                  {   isTiny? <RX.View style={{ flexDirection: 'row', width,marginTop:20,justifyContent: 'center', alignItems: 'center',alignSelf:"center", }}>
                        <RX.Image source={ImageSource.vector8} style={{     marginRight:10,width: 15, height: 15, }} />
             
       <RX.Text style={[_styles.titleStyleBig, {alignSelf: 'center', }]} >
       {"TOKEN INFO."}
     </RX.Text>
     
-    </RX.View>
+    </RX.View>: <RX.View style={{ flexDirection: 'row', paddingLeft:100,width:width,marginTop:0,justifyContent: 'flex-start', alignItems: 'center',alignSelf:"center", }}>
+                       <RX.Image source={ImageSource.vector8} style={{     marginRight:10,width: 15, height: 15, }} />
+            
+      <RX.Text style={[_styles.titleStyleBig, {alignSelf: 'center',}]} >
+      {"TOKEN INFO."}
+    </RX.Text>
+    
+    </RX.View>} 
+{isTiny? <RX.View style={{ 
+   alignSelf: 'stretch', justifyContent:'center',alignItems:'center',flex:1 }}>
+  
+  <RX.View  style={{justifyContent:'center',alignItems:'center',height: 80,width: width*0.9,}}>
+<UI.Paper elevation={10} style={{ root: {margin:5,elevation: 0, position: 'absolute', justifyContent: "center", alignItems: "center", borderRadius: 8, backgroundColor: '#343A40', height: 70,width: width*0.8,  } }} >
 
-    <RX.View style={{ height:180, marginTop: 10, marginBottom: 0, alignSelf: 'stretch', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-      <RX.View style={{ position:'relative',marginBottom: 15, height: 160, width:showSideMenu?380: 460, justifyContent: 'center', alignItems: 'center', alignSelf: 'flex-start', }}>
+<RX.View style={{  justifyContent: 'center', alignItems: 'center', }}>
+
+    <RX.Text style={[_styles.titleStyle5Tiny, { alignSelf: 'center',  marginTop: 5, marginBottom: 5 }]} >
+      {"Zatcoin Price"}
+    </RX.Text>
+    {price==0?
+    <RX.Text style={[_styles.titleStyleTiny, { alignSelf: 'center',  marginBottom: 5 }]} >
+      {"Loading.."}
+    </RX.Text>:
+    <RX.Text style={[_styles.titleStyleTiny, { alignSelf: 'center',  marginBottom: 5 }]} >
+      {"$ "+price.toString().substring(0, 10).toUpperCase() }
+    </RX.Text>}
+</RX.View>
+
+</UI.Paper>
+
+</RX.View>
+
+<RX.View  style={{justifyContent:'center',alignItems:'center',height: 80,width: width*0.9,}}>
+<UI.Paper elevation={10} style={{ root: {margin:5,elevation: 0, position: 'absolute', justifyContent: "center", alignItems: "center", borderRadius: 8, backgroundColor: '#343A40', height: 70,width: width*0.8,  } }} >
+
+<RX.View style={{ justifyContent: 'center', alignItems: 'center', }}>
+
+    <RX.Text style={[_styles.titleStyle5Tiny, { alignSelf: 'center',  marginTop: 5, marginBottom: 5 }]} >
+    {"Circulating Supply"}
+    </RX.Text>
+    {supply==0?
+              <RX.Text style={[_styles.titleStyleTiny, {alignSelf: 'center',  }]} >
+                {"Loading.."}
+              </RX.Text>:
+             
+      <RX.Text style={[_styles.titleStyleTiny, { alignSelf: 'center', }]} >
+      {supply+" Zatcoins"}
+    </RX.Text>
+    }
+</RX.View>
+
+</UI.Paper>
+
+</RX.View>
+
+<RX.View  style={{justifyContent:'center',alignItems:'center',height: 80,width: width*0.9,}}>
+<UI.Paper elevation={10} style={{ root: {margin:5,elevation: 0, position: 'absolute', justifyContent: "center", alignItems: "center", borderRadius: 8, backgroundColor: '#343A40', height: 70,width: width*0.8,  } }} >
+
+<RX.View style={{ justifyContent: 'center', alignItems: 'center', }}>
+
+    <RX.Text style={[_styles.titleStyle5Tiny, { alignSelf: 'center', marginTop: 5, marginBottom: 5 }]} >
+    {"MarketCap"}
+    </RX.Text>
+    {totalSupply==0?
+              <RX.Text style={[_styles.titleStyleTiny, { alignSelf: 'center', }]} >
+                {"Loading.."}
+              </RX.Text>:
+              
+              <RX.Text style={[_styles.titleStyleTiny, { alignSelf: 'center',  }]} >
+                {"$ "+((totalSupply-burn)*price)}
+              </RX.Text>}
+</RX.View>
+
+</UI.Paper>
+
+</RX.View>
+
+
+<RX.View  style={{justifyContent:'center',alignItems:'center',height: 80,width: width*0.9,}}>
+<UI.Paper elevation={10} style={{ root: {margin:5,elevation: 0, position: 'absolute', justifyContent: "center", alignItems: "center", borderRadius: 8, backgroundColor: '#343A40', height: 70,width: width*0.8,  } }} >
+
+<RX.View style={{ justifyContent: 'center', alignItems: 'center', }}>
+
+    <RX.Text style={[_styles.titleStyle5Tiny, { alignSelf: 'center', marginTop: 5, marginBottom: 5 }]} >
+    {"Total Supply"}
+    </RX.Text>
+    {totalSupply==0?
+              <RX.Text style={[_styles.titleStyleTiny, { alignSelf: 'center', }]} >
+                {"Loading.."}
+              </RX.Text>:
+              <RX.Text style={[_styles.titleStyleTiny, { alignSelf: 'center', }]} >
+                {totalSupply+ " Zatcoin" }
+              </RX.Text>}
+</RX.View>
+
+</UI.Paper>
+
+</RX.View>
+
+<RX.View  style={{justifyContent:'center',alignItems:'center',height: 80,width: width*0.9,}}>
+<UI.Paper elevation={10} style={{ root: {margin:5,elevation: 0, position: 'absolute', justifyContent: "center", alignItems: "center", borderRadius: 8, backgroundColor: '#343A40', height: 70,width: width*0.8,  } }} >
+
+<RX.View style={{ justifyContent: 'center', alignItems: 'center', }}>
+
+    <RX.Text style={[_styles.titleStyle5Tiny, { alignSelf: 'center',  }]} >
+    {"Holders"}
+    </RX.Text>
+    {holders==0?
+              <RX.Text style={[_styles.titleStyleTiny, { alignSelf: 'center', }]} >
+                {"Loading.."}
+              </RX.Text>:
+             
+      <RX.Text style={[_styles.titleStyleTiny, { alignSelf: 'center',  }]} >
+      {"+ "+holders}
+    </RX.Text>}
+</RX.View>
+
+</UI.Paper>
+
+</RX.View>
+
+<RX.View  style={{justifyContent:'center',alignItems:'center',height: 80,width: width*0.9,}}>
+<UI.Paper elevation={10} style={{ root: {margin:5,elevation: 0, position: 'absolute', justifyContent: "center", alignItems: "center", borderRadius: 8, backgroundColor: '#343A40', height: 70,width: width*0.8,  } }} >
+
+<RX.View style={{ justifyContent: 'center', alignItems: 'center', }}>
+
+    <RX.Text style={[_styles.titleStyle5Tiny, { alignSelf: 'center', marginTop: 5, marginBottom: 5 }]} >
+      {"Zatcoin Price"}
+    </RX.Text>
+    {price==0?
+    <RX.Text style={[_styles.titleStyleTiny, { alignSelf: 'center',  marginBottom: 5 }]} >
+      {"Loading.."}
+    </RX.Text>:
+    <RX.Text style={[_styles.titleStyleTiny, { alignSelf: 'center',  marginBottom: 5 }]} >
+      {"$ "+price.toString().substring(0, 10).toUpperCase() }
+    </RX.Text>}
+</RX.View>
+
+</UI.Paper>
+
+</RX.View>
+   </RX.View>:
+      <RX.View style={{  height:180,marginTop: 0, paddingBottom: 0, marginBottom: 15, alignSelf: 'stretch', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+      <RX.View style={{ position:'relative',marginBottom: 30, height: 160, width: showSideMenu?380: 460, justifyContent: 'center', alignItems: 'center', alignSelf: 'flex-start', }}>
 
         <UI.Paper elevation={10} style={{ root: {margin:20,elevation: 0, position: 'absolute', justifyContent: "center", alignItems: "flex-start", borderRadius: 8, width: showSideMenu?350: 440, backgroundColor: '#343A40', height: 135 } }} >
 
           <RX.View style={{ flexDirection: 'row', paddingLeft:15,justifyContent: 'center', alignItems: 'center', }}>
 
-            <RX.View  style={{}}>
-              <RX.Text style={[_styles.titleStyle5, { alignSelf: 'flex-start', marginRight: 20, marginTop: 10, marginBottom: 10 }]} >
-                {"Zatcoin Price"}
-              </RX.Text>
-              {price==0?
-              <RX.Text style={[_styles.titleStyle, { alignSelf: 'flex-end', marginRight: 20, marginBottom: 10 }]} >
-                {"Loading.."}
-              </RX.Text>:
-              <RX.Text style={[_styles.titleStyle, { alignSelf: 'flex-end', marginRight: 20, marginBottom: 10 }]} >
-                {"$ "+price.toString().substring(0, 10).toUpperCase() }
-              </RX.Text>}
-              </RX.View>
-          </RX.View>
-         
-        </UI.Paper>
-        <RX.View style={{ position: 'absolute', marginRight: showSideMenu?-260:-360, marginBottom: 60, }}>
-          <UI.Paper style={{ root: { elevation: 1, justifyContent: "center", alignItems: "center", borderRadius: 100, width: 50, backgroundColor: '#212529', marginLeft: 0, height: 50 } }} >
-          <RX.Image source={ImageSource.vector2} style={{  alignSelf: 'center',  width: 18, height: 18 }} />
-          </UI.Paper>
-
-        </RX.View>
-
+    <RX.View  style={{}}>
+      <RX.Text style={[_styles.titleStyle5, { alignSelf: 'flex-start', marginRight: 20, marginTop: 10, marginBottom: 10 }]} >
+        {"Zatcoin Price"}
+      </RX.Text>
+      {price==0?
+      <RX.Text style={[_styles.titleStyle, { alignSelf: 'flex-end', marginRight: 20, marginBottom: 10 }]} >
+        {"Loading.."}
+      </RX.Text>:
+      <RX.Text style={[_styles.titleStyle, { alignSelf: 'flex-end', marginRight: 20, marginBottom: 10 }]} >
+        {"$ "+price.toString().substring(0, 10).toUpperCase() }
+      </RX.Text>}
       </RX.View>
+  </RX.View>
+ 
+</UI.Paper>
+<RX.View style={{ position: 'absolute', marginRight: showSideMenu?-260:-360, marginBottom: 60, }}>
+  <UI.Paper style={{ root: { elevation: 1, justifyContent: "center", alignItems: "center", borderRadius: 100, width: 50, backgroundColor: '#212529', marginLeft: 0, height: 50 } }} >
+  <RX.Image source={ImageSource.vector2} style={{  alignSelf: 'center',  width: 18, height: 18 }} />
+  </UI.Paper>
+
+</RX.View>
+
+</RX.View>
 
 
 
       
-      <RX.View style={{  height:180,marginTop: 0, paddingBottom: 0, marginBottom: 130, alignSelf: 'stretch', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+      <RX.View style={{  height:180,marginTop: 0, paddingBottom: 0, marginBottom: 15, alignSelf: 'stretch', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
       <RX.View style={{ position:'relative',marginBottom: 30, height: 160, width: showSideMenu?380: 460, justifyContent: 'center', alignItems: 'center', alignSelf: 'flex-start', }}>
 
         <UI.Paper elevation={10} style={{ root: {margin:20,elevation: 0, position: 'absolute', justifyContent: "center", alignItems: "flex-start", borderRadius: 8, width: showSideMenu?350: 440, backgroundColor: '#343A40', height: 135 } }} >
@@ -477,7 +641,9 @@ export const HomeHook = ({
 
       </RX.View>
 
-    </RX.View>
+    </RX.View>}
+
+    {isTiny?<RX.View></RX.View>:
     <RX.View style={{  height:180,marginTop: 0, paddingBottom: 0, marginBottom: 130, alignSelf: 'stretch', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
       <RX.View style={{ position:'relative',marginBottom: 30, height: 160, width: showSideMenu?380: 460, justifyContent: 'center', alignItems: 'center', alignSelf: 'flex-start', }}>
 
@@ -575,7 +741,7 @@ export const HomeHook = ({
 
       </RX.View>
 
-    </RX.View>
+    </RX.View>}
   </RX.View >
 
   );

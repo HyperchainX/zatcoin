@@ -83,8 +83,8 @@ export default class AccountMenuButton extends ComponentBase<AccountMenuButtonPr
             case 'home':
                 return NavContextStore.navigateToTodoList(undefined, false, true);
 
-            case 'About':
-                return NavContextStore.navigateToTodoList(undefined, false, false, false, true, false, false, false, false);
+            case 'profile':
+                return NavContextStore.navigateToTodoList(undefined, false, false,false,true);
 
             case 'Get':
                 return NavContextStore.navigateToTodoList(undefined, false, false, false, false, false, true, false);

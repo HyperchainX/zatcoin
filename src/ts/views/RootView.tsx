@@ -50,6 +50,7 @@ interface RootViewState {
     username: string;
     isLogin: boolean;
     user: any;
+    isTiny:boolean;
     mensajes: any;
     autores: any;
     navContext: NavModels.RootNavContext;
@@ -123,6 +124,7 @@ export default class RootView extends ComponentBase<RootViewProps, RootViewState
             width: ResponsiveWidthStore.getWidth(),
             holders: CurrentUserStore.getHolders(),
             burn: CurrentUserStore.getBurn(),
+            isTiny: ResponsiveWidthStore.isSmallOrTinyScreenSize(),
             supply: CurrentUserStore.getSupply(),
             price: CurrentUserStore.getPrice(),
             isStackNav: newNavContext.isStackNav,
@@ -355,7 +357,7 @@ const tokenMetadata = await Moralis.Web3API.token.getTokenMetadata(options2);
             case NavModels.NavViewId.Partner:
                 return <PartnerHook isStackNav={this.state.isStackNav} len={this.state.lenguage} />;
             case NavModels.NavViewId.About:
-                return <AboutHook user={this.state.user} showSideMenu={this.state.showSideMenu} isConnected={this.state.isConnected}  isLogin={this.state.isLogin}  isStackNav={this.state.isStackNav} len={this.state.lenguage} entries={[]} width={this.state.width} />;
+                return <AboutHook isTiny={this.state.isTiny}  user={this.state.user} showSideMenu={this.state.showSideMenu} isConnected={this.state.isConnected}  isLogin={this.state.isLogin}  isStackNav={this.state.isStackNav} len={this.state.lenguage} entries={[]} width={this.state.width} />;
             case NavModels.NavViewId.Involve:
                 return <InvolveHook isStackNav={this.state.isStackNav} len={this.state.lenguage} entries={[]} width={this.state.width} />;
             case NavModels.NavViewId.Road:
@@ -371,7 +373,7 @@ const tokenMetadata = await Moralis.Web3API.token.getTokenMetadata(options2);
             case NavModels.NavViewId.Chats:
                 return <ChatPanel isLogin={this.state.isLogin} ownerId={this.state.ownerId} userId={this.state.user.userId} />;
             case NavModels.NavViewId.Home:
-                return <HomeHook  holders={this.state.holders}  totalSupply={this.state.totalSupply}  burn={this.state.burn}  supply={this.state.supply}  showSideMenu={this.state.showSideMenu} price={this.state.price}  len={this.state.lenguage} width={this.state.width} isStackNav={this.state.isStackNav} entries={this.state.entries} />;
+                return <HomeHook isTiny={this.state.isTiny} holders={this.state.holders}  totalSupply={this.state.totalSupply}  burn={this.state.burn}  supply={this.state.supply}  showSideMenu={this.state.showSideMenu} price={this.state.price}  len={this.state.lenguage} width={this.state.width} isStackNav={this.state.isStackNav} entries={this.state.entries} />;
             case NavModels.NavViewId.ViewTodo:
                 const viewContext = this._findNavContextForRoute(viewId) as NavModels.ViewTodoViewNavContext;
                 if (!viewContext) {
@@ -379,7 +381,7 @@ const tokenMetadata = await Moralis.Web3API.token.getTokenMetadata(options2);
                 }
                 return <ViewTodoPanel todoId={viewContext.todoId} />;
             default:
-                return <HomeHook burn={this.state.burn} holders={this.state.holders} totalSupply={this.state.totalSupply}    supply={this.state.supply}  showSideMenu={this.state.showSideMenu} price={this.state.price}  len={this.state.lenguage} width={this.state.width} isStackNav={this.state.isStackNav} entries={this.state.entries} />;
+                return <HomeHook isTiny={this.state.isTiny} burn={this.state.burn} holders={this.state.holders} totalSupply={this.state.totalSupply}    supply={this.state.supply}  showSideMenu={this.state.showSideMenu} price={this.state.price}  len={this.state.lenguage} width={this.state.width} isStackNav={this.state.isStackNav} entries={this.state.entries} />;
         }
     }
 

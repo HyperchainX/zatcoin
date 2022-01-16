@@ -147,11 +147,7 @@ export default class TopBarStack extends ComponentBase<TopBarStackProps, TopBarC
                 </RX.View>
 
                 <RX.View style={{ flex: 13, height: 56, paddingVertical: 10, marginVertical: 10, justifyContent: 'center', alignItems: 'center' }} >
-                    {this.state.isLogin === true ?
-                        <AccountMenuButton5 isStackNav={true} onPress={this._onPressTodo} />
-                        :
-                        null
-                    }
+                    
                 </RX.View>
             </RX.View>
         );

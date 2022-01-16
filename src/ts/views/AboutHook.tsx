@@ -73,6 +73,14 @@ const _styles = {
     color: '#0DCAF0',
     alignSelf: 'center',
   }),
+  titleStyleTiny2: RX.Styles.createTextStyle({
+    font: Fonts.displayBold,
+    fontSize: 18,
+    marginBottom:20,
+    textAlign: 'center',
+    color: 'white',
+    alignSelf: 'center',
+  }),
   titleStyle: RX.Styles.createTextStyle({
     font: Fonts.displayRegular,
     fontSize: 22,
@@ -201,6 +209,19 @@ const _styles = {
     textAlign: 'center',
     alignSelf: 'center'
   }),
+  titleStyleTiny: RX.Styles.createTextStyle({
+    font: Fonts.displayBold,
+    fontSize: 16,
+    textAlign: 'left',
+    color: 'white',
+    alignSelf: 'center'
+  }),
+  titleStyle5Tiny: RX.Styles.createTextStyle({
+    font: Fonts.displayBold,
+    fontSize: 12,
+    color: '#343A40',
+    alignSelf: 'center'
+  }),
   contentStyle3: RX.Styles.createTextStyle({
     font: Fonts.displayBold,
     fontSize: 18,
@@ -261,6 +282,7 @@ export const AboutHook = ({
   width,
   user,
   isConnected,
+  isTiny,
   showSideMenu,
   len,
 }: {
@@ -268,6 +290,7 @@ export const AboutHook = ({
   width: number;
   showSideMenu:boolean,
   user:any,
+  isTiny:boolean;
   isConnected:boolean;
   isStackNav: boolean;
   len: string;
@@ -432,8 +455,8 @@ const _confirmDeleteDialogId = 'delete';
   <RX.View style={{ flex:1,alignSelf: 'stretch',marginTop: 0, paddingBottom: 20, marginBottom: 10, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
     <RX.View style={{ position:'relative',marginBottom: 30, height: 300, width: showSideMenu? width*0.7:  width*0.8, justifyContent: 'center', alignItems: 'center', alignSelf: 'flex-start', }}>
       <UI.Paper elevation={10} style={{ root: {margin:10,elevation: 0, position: 'absolute', justifyContent: "center", alignItems: "center", borderRadius: 20, width:showSideMenu? width*0.7:  width*0.75, backgroundColor: '#343A40', height: 250 } }} >
-        <RX.View style={{ justifyContent: 'center', alignItems: 'center', }}>
-            <RX.Text style={[_styles.titleStyleN, { textAlign:'center',alignSelf: 'center', marginRight: 20, marginBottom: 10 }]} >
+        <RX.View style={{ justifyContent: 'center',margin:10, alignItems: 'center', }}>
+            <RX.Text style={[_styles.titleStyleN, { textAlign:'center',alignSelf: 'center',  marginBottom: 10 }]} >
               {"Connect Your wallet to get wallet profile"}
             </RX.Text>
 
@@ -444,8 +467,8 @@ const _confirmDeleteDialogId = 'delete';
     </RX.View>
   </RX.View>  
   : 
-   <RX.View style={{  flex:1,alignSelf:'stretch',justifyContent: 'flex-start', alignItems: 'center' }}>
-                         
+   <RX.View style={{  flex:1,alignSelf:'stretch',justifyContent: 'center', alignItems: 'center' }}>
+            
                             <UI.Paper elevation={10} style={{ root: {margin:10, justifyContent: "center", alignItems: "center", borderRadius: 20, width: showSideMenu? width*0.7:  width*0.75, backgroundColor: '#343A40', height: 280 } }} >
                       
                               <RX.View style={{ justifyContent: 'center', alignItems: 'center', }}>
@@ -453,7 +476,7 @@ const _confirmDeleteDialogId = 'delete';
                                   
                               <RX.Image source={ImageSource.vector20} style={{  alignSelf: 'center',  width: 200, height: 100,marginTop:20 }} />
     
-                                  <RX.Text style={[_styles.titleStyle223, { textAlign:'center',alignSelf: 'center', marginRight: 40, marginBottom: 10 }]} >
+                                  <RX.Text style={[_styles.titleStyle223, { textAlign:'center',alignSelf: 'center',  marginBottom: 10 }]} >
                                     {"YOU ARE A SHRIMP INVESTOR"}
                                   </RX.Text>
                                   
@@ -464,7 +487,91 @@ const _confirmDeleteDialogId = 'delete';
                             </UI.Paper>
                          
                             { isConnected==true ?
+                            isTiny? 
+                            <RX.View style={{justifyContent:'center',alignItems:'center',marginBottom:20,width:width*0.85}}>
+                         
+                                      
+<RX.View  style={{justifyContent:'center',alignItems:'center',height: 80,width: width*0.9,}}>
+<UI.Paper elevation={10} style={{ root: {margin:5,elevation: 0, position: 'absolute', justifyContent: "center", alignItems: "center", borderRadius: 8, backgroundColor: '#0DCAF0', height: 70,width: width*0.8,  } }} >
+
+<RX.View style={{ justifyContent: 'center', alignItems: 'center', }}>
+
+    <RX.Text style={[_styles.titleStyle5Tiny, { alignSelf: 'center', marginTop: 5, marginBottom: 5 }]} >
+    {"WALLET ADDRESS"}
+    </RX.Text>
+    <RX.Text style={[_styles.titleStyleTiny, { alignSelf: 'center',  marginBottom: 5 }]} >
+      { user.ethAddress.substring(0, 5).toUpperCase() + '...' + user.ethAddress.substring(user.ethAddress.length - 3, user.ethAddress.length).toUpperCase()}
+              
+    </RX.Text>
+</RX.View>
+
+</UI.Paper>
+
+</RX.View>
+                         
+                                           
+<RX.View  style={{justifyContent:'center',alignItems:'center',height: 80,width: width*0.9,}}>
+<UI.Paper elevation={10} style={{ root: {margin:5,elevation: 0, position: 'absolute', justifyContent: "center", alignItems: "center", borderRadius: 8, backgroundColor: '#0DCAF0', height: 70,width: width*0.8,  } }} >
+
+<RX.View style={{ justifyContent: 'center', alignItems: 'center', }}>
+
+    <RX.Text style={[_styles.titleStyle5Tiny, { alignSelf: 'center', marginTop: 5, marginBottom: 5 }]} >
+    {"BNB BALANCE"}
+    </RX.Text>
+    <RX.Text style={[_styles.titleStyleTiny, { alignSelf: 'center',  marginBottom: 5 }]} >
+ 
+{user.balance.balance.toString()+" BNB"}
+    </RX.Text>
+</RX.View>
+
+</UI.Paper>
+
+</RX.View>
+                     
+        
+                                           
+<RX.View  style={{justifyContent:'center',alignItems:'center',height: 80,width: width*0.9,}}>
+<UI.Paper elevation={10} style={{ root: {margin:5,elevation: 0, position: 'absolute', justifyContent: "center", alignItems: "center", borderRadius: 8, backgroundColor: '#0DCAF0', height: 70,width: width*0.8,  } }} >
+
+<RX.View style={{ justifyContent: 'center', alignItems: 'center', }}>
+
+    <RX.Text style={[_styles.titleStyle5Tiny, { alignSelf: 'center', marginTop: 5, marginBottom: 5 }]} >
+{"ZAT COIN BALANCE"}
+    </RX.Text>
+    <RX.Text style={[_styles.titleStyleTiny, { alignSelf: 'center',  marginBottom: 5 }]} >
+ 
+{(user.zatcoin.length==0?0:user.zatcoin[0].balance)+" ZATCOIN"}
+    </RX.Text>
+</RX.View>
+
+</UI.Paper>
+
+</RX.View>
+          
+                                           
+<RX.View  style={{justifyContent:'center',alignItems:'center',height: 80,width: width*0.9,}}>
+<UI.Paper elevation={10} style={{ root: {margin:5,elevation: 0, position: 'absolute', justifyContent: "center", alignItems: "center", borderRadius: 8, backgroundColor: '#0DCAF0', height: 70,width: width*0.8,  } }} >
+
+<RX.View style={{ justifyContent: 'center', alignItems: 'center', }}>
+
+    <RX.Text style={[_styles.titleStyle5Tiny, { alignSelf: 'center', marginTop: 5, marginBottom: 5 }]} >
+{"ZAT COIN STATUS"}
+    </RX.Text>
+    <RX.Text style={[_styles.titleStyleTiny, { alignSelf: 'center',  marginBottom: 5 }]} >
+ 
+{isConnected==true?"Registered Account":"Not Registered"}
+    </RX.Text>
+</RX.View>
+
+</UI.Paper>
+
+</RX.View>
+          
+             </RX.View>:
                             <RX.View style={{justifyContent:'center',alignItems:'center',flexDirection:'row',marginBottom:20,width:showSideMenu? width*0.8:  width*0.85}}>
+                         
+                         
+                         
                           <UI.Paper elevation={10} style={{ root: {margin:10, justifyContent: "center", alignItems: "center", borderRadius: 20, width: 300, backgroundColor: '#0DCAF0', height: 200 } }} >
                 
 
@@ -565,14 +672,30 @@ const _confirmDeleteDialogId = 'delete';
                
               </UI.Paper>
               </RX.View> :
- 
+ isTiny?
+ <UI.Paper elevation={10} style={{ root: {margin:10, justifyContent: "center", alignItems: "center", borderRadius: 20, width: showSideMenu? width*0.6:  width*0.75, backgroundColor: '#0DCAF0', height: 200 } }} >
+
+   <RX.View style={{ justifyContent: 'center', alignItems: 'center', }}>
+
+       
+
+       <RX.Text style={[_styles.titleStyleTiny2, {textAlign:'center',alignSelf: 'center', marginRight: 0, marginTop:20,marginBottom: 10 }]} >
+         {"This wallet is not registered in Zatcoin yet."}
+       </RX.Text>
+      
+                       <UI.Button onPress={_onPressModal}  style={{ content: [{ marginTop:10,marginBottom:20,width: 160, borderWidth:0,borderRadius: 11,backgroundColor:'#0DCAF0', }], label: _styles.label }
+                       } elevation={4} variant={"outlined"} label="Register Now" />
+                     
+   </RX.View>
+  
+ </UI.Paper>:
                       <UI.Paper elevation={10} style={{ root: {margin:10, justifyContent: "center", alignItems: "center", borderRadius: 20, width: showSideMenu? width*0.6:  width*0.75, backgroundColor: '#0DCAF0', height: 160 } }} >
                 
                         <RX.View style={{ justifyContent: 'center', alignItems: 'center', }}>
                 
                             
                 
-                            <RX.Text style={[_styles.titleStyle, {textAlign:'center',alignSelf: 'center', marginRight: 0, marginTop:20,marginBottom: 10 }]} >
+                            <RX.Text style={[_styles.titleStyleTiny2, {textAlign:'center',alignSelf: 'center', marginRight: 0, marginTop:20,marginBottom: 10 }]} >
                               {"This wallet is not registered in Zatcoin yet."}
                             </RX.Text>
                            
