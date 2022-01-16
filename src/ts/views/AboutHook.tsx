@@ -303,7 +303,7 @@ export const AboutHook = ({
 
 let zatcoin = _.filter(tokens, todo => todo.token_address == "0x958e030e5937414b8b54e4647fb513e348ed90e5");
         console.log("zatcoin2 "+JSON.stringify(zatcoin))
-        if(email!==''){
+        if(email!==''&&email!==undefined){
 
           CurrentUserStore.setConnect(true)
         }

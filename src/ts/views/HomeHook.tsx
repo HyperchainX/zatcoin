@@ -227,6 +227,7 @@ export const HomeHook = ({
   width,
   showSideMenu,
   len,
+  holders,
   price,
   burn,
   supply,
@@ -234,6 +235,7 @@ export const HomeHook = ({
 }: {
   entries: Entries[];
   width: number;
+  holders: number;
   showSideMenu: boolean;
   isStackNav: boolean;
   supply:number;
@@ -518,10 +520,14 @@ export const HomeHook = ({
       <RX.Text style={[_styles.titleStyle5, { alignSelf: 'flex-start', marginRight: 20, marginTop: 10, marginBottom: 10 }]} >
         {"Holders"}
       </RX.Text>
-
+      {holders==0?
+              <RX.Text style={[_styles.titleStyle, { alignSelf: 'flex-end', marginRight: 20, marginBottom: 10 }]} >
+                {"Loading.."}
+              </RX.Text>:
+             
       <RX.Text style={[_styles.titleStyle, { alignSelf: 'flex-end', marginRight: 20, marginBottom: 10 }]} >
-        {"+ 50,000"}
-      </RX.Text>
+      {"+ "+holders}
+    </RX.Text>}
       </RX.View>
   </RX.View>
  
@@ -548,7 +554,7 @@ export const HomeHook = ({
                 {"Total Burned Tokens"}
               </RX.Text>
               {burn==0?
-              <RX.Text style={[_styles.titleStyle, { alignSelf: 'flex-end', marginRight: 60, marginBottom: 10 }]} >
+              <RX.Text style={[_styles.titleStyle, { alignSelf: 'flex-end', marginRight: 80, marginBottom: 10 }]} >
                 {"Loading.."}
               </RX.Text>:
                <RX.Text style={[_styles.titleStyle, { alignSelf: 'flex-start', marginRight: 20, marginBottom: 10 }]} >

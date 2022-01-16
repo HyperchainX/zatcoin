@@ -130,6 +130,19 @@ private mensajes:Message[]=[]
   }
   
   private supply: number = 0
+  private holders: number = 0
+  @autoSubscribe
+  getHolders(): number {
+      return this.holders
+  }
+  setHolders(price: number) {
+      
+   
+
+    this.holders = price
+
+  this.trigger()
+  }
   private totalsupply: number = 0
   @autoSubscribe
   getTotalSupply(): number {

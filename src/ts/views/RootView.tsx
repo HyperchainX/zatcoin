@@ -40,6 +40,7 @@ interface RootViewState {
     lenguage: string
     isSideMenu: boolean;
     burn:any;
+    holders:number;
     totalSupply:number;
     supply:any;
     owner: string;
@@ -120,6 +121,7 @@ export default class RootView extends ComponentBase<RootViewProps, RootViewState
             username: CurrentUserStore.getUserName(),
             totalSupply: CurrentUserStore.getTotalSupply(),
             width: ResponsiveWidthStore.getWidth(),
+            holders: CurrentUserStore.getHolders(),
             burn: CurrentUserStore.getBurn(),
             supply: CurrentUserStore.getSupply(),
             price: CurrentUserStore.getPrice(),
@@ -215,7 +217,7 @@ const tokenMetadata = await Moralis.Web3API.token.getTokenMetadata(options2);
                     <RX.View style={{alignSelf:'flex-end',width:this.state.showSideMenu?260:80,height:50,backgroundColor:'#23272B'}}/>
                 
                     <RX.View style={{alignSelf:'flex-end',paddingLeft:40,flexDirection:'row',width:this.state.showSideMenu?this.state.width-260:this.state.width-80,height:50,backgroundColor:'#343A40'}}>
-                    <RX.View style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
+                    <RX.View onPress={()=>RX.Linking.openUrl('https://zatcoin.io/home')} style={{flexDirection:'row', justifyContent:'center',alignItems:'center'}}>
                     <RX.Image source={ImageSource.vector15} style={{     marginRight:10,width: 15, height: 15, }} />
              
                    
@@ -225,7 +227,7 @@ const tokenMetadata = await Moralis.Web3API.token.getTokenMetadata(options2);
 
               </RX.View>
 
-              <RX.View style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
+              <RX.View onPress={()=>RX.Linking.openUrl('https://t.me/zatcointools')} style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
                     <RX.Image source={ImageSource.vector14} style={{     marginRight:10,width: 15, height: 15, }} />
              
                
@@ -235,7 +237,7 @@ const tokenMetadata = await Moralis.Web3API.token.getTokenMetadata(options2);
 
               </RX.View>
               
-              <RX.View style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
+              <RX.View onPress={()=>RX.Linking.openUrl('https://twitter.com/zatcoin')} style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
                     <RX.Image source={ImageSource.vector16} style={{     marginRight:10,width: 15, height: 15, }} />
              
                
@@ -369,7 +371,7 @@ const tokenMetadata = await Moralis.Web3API.token.getTokenMetadata(options2);
             case NavModels.NavViewId.Chats:
                 return <ChatPanel isLogin={this.state.isLogin} ownerId={this.state.ownerId} userId={this.state.user.userId} />;
             case NavModels.NavViewId.Home:
-                return <HomeHook  totalSupply={this.state.totalSupply}  burn={this.state.burn}  supply={this.state.supply}  showSideMenu={this.state.showSideMenu} price={this.state.price}  len={this.state.lenguage} width={this.state.width} isStackNav={this.state.isStackNav} entries={this.state.entries} />;
+                return <HomeHook  holders={this.state.holders}  totalSupply={this.state.totalSupply}  burn={this.state.burn}  supply={this.state.supply}  showSideMenu={this.state.showSideMenu} price={this.state.price}  len={this.state.lenguage} width={this.state.width} isStackNav={this.state.isStackNav} entries={this.state.entries} />;
             case NavModels.NavViewId.ViewTodo:
                 const viewContext = this._findNavContextForRoute(viewId) as NavModels.ViewTodoViewNavContext;
                 if (!viewContext) {
@@ -377,7 +379,7 @@ const tokenMetadata = await Moralis.Web3API.token.getTokenMetadata(options2);
                 }
                 return <ViewTodoPanel todoId={viewContext.todoId} />;
             default:
-                return <HomeHook burn={this.state.burn} totalSupply={this.state.totalSupply}    supply={this.state.supply}  showSideMenu={this.state.showSideMenu} price={this.state.price}  len={this.state.lenguage} width={this.state.width} isStackNav={this.state.isStackNav} entries={this.state.entries} />;
+                return <HomeHook burn={this.state.burn} holders={this.state.holders} totalSupply={this.state.totalSupply}    supply={this.state.supply}  showSideMenu={this.state.showSideMenu} price={this.state.price}  len={this.state.lenguage} width={this.state.width} isStackNav={this.state.isStackNav} entries={this.state.entries} />;
         }
     }
 

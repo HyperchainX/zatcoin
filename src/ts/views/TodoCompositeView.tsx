@@ -73,6 +73,7 @@ interface TodoCompositeViewState {
     navId: string;
     supply:number;
     user:any,
+    holders:number;
     totalSupply:number;
     price:number;
     burn:number;
@@ -120,6 +121,7 @@ export default class TodoCompositeView extends ComponentBase<TodoCompositeViewPr
             price: CurrentUserStore.getPrice(),
             burn: CurrentUserStore.getBurn(),
             user: CurrentUserStore.getUser(),
+            holders:CurrentUserStore.getHolders(),
             supply:CurrentUserStore.getSupply(),
             totalSupply:CurrentUserStore.getTotalSupply(),
 
@@ -155,7 +157,7 @@ export default class TodoCompositeView extends ComponentBase<TodoCompositeViewPr
             );
         } else if (this.props.navContext.showHomePanel) {
             return (
-                <HomeHook supply={this.state.supply} totalSupply={this.state.totalSupply}  burn={this.state.burn}  showSideMenu={this.props.showSideMenu} price={this.state.price} len={this.props.lenguage} width={this.props.width} isStackNav={this.props.isStackNav} entries={this.props.entries} />
+                <HomeHook supply={this.state.supply} holders={this.state.holders}  totalSupply={this.state.totalSupply}  burn={this.state.burn}  showSideMenu={this.props.showSideMenu} price={this.state.price} len={this.props.lenguage} width={this.props.width} isStackNav={this.props.isStackNav} entries={this.props.entries} />
             );
         } else if (this.props.navContext.todoList.selectedTodoId) {
             return (
@@ -202,7 +204,7 @@ export default class TodoCompositeView extends ComponentBase<TodoCompositeViewPr
                 <ChatPanel isLogin={this.props.isLogin} ownerId={this.props.ownerId} userId={this.props.user.userId} />
             );
         } else {
-            return <HomeHook totalSupply={this.state.totalSupply}  burn={this.state.burn} supply={this.state.supply}  showSideMenu={this.props.showSideMenu} price={this.state.price}  len={this.props.lenguage} width={this.props.width} isStackNav={this.props.isStackNav} entries={this.props.entries} />;
+            return <HomeHook totalSupply={this.state.totalSupply} holders={this.state.holders}  burn={this.state.burn} supply={this.state.supply}  showSideMenu={this.props.showSideMenu} price={this.state.price}  len={this.props.lenguage} width={this.props.width} isStackNav={this.props.isStackNav} entries={this.props.entries} />;
         }
     }
 

@@ -154,7 +154,26 @@ export default abstract class AppBootstrapper {
 console.log("burn "+balanceOf)
 CurrentUserStore.setBurn(parseFloat(balanceOf))
 CurrentUserStore.setSupply(totalSupply-parseFloat(balanceOf))
+const optionsCo = { chain: "bsc", block_number_or_hash: "0" };
 
+// get block content on BSC
+const options33 = {
+          chain: "bsc",
+          date: "2022-01-15T13:09:15+00:00"
+};
+const date = await Moralis.Web3API.native.getDateToBlock(options33);
+const  holders ={
+  chainId: 56,
+   address: "0x958e030e5937414b8b54e4647fb513e348ed90e5",
+   pageSize:10000, 
+  startingBlock: "0" ,
+      endingBlock:   date.block ,
+    }
+
+let covalent=await Moralis.Plugins.covalent.getChangesInTokenHolerBetweenBlockHeights(holders);
+console.log("covalent"+JSON.stringify(covalent))
+
+CurrentUserStore.setHolders(covalent.data.items.length)
 CurrentUserStore.setTotalSupply(totalSupply)
     }
     loadChats = async (username: string) => {
