@@ -71,7 +71,11 @@ interface TodoCompositeViewState {
     activeId: string;
     isConnected:boolean;
     navId: string;
+    supply:number;
+    user:any,
+    totalSupply:number;
     price:number;
+    burn:number;
 }
 
 const _styles = {
@@ -114,6 +118,10 @@ export default class TodoCompositeView extends ComponentBase<TodoCompositeViewPr
             isConnected:CurrentUserStore.getIsConnect(),
             navId: CurrentUserStore.getNavId(),
             price: CurrentUserStore.getPrice(),
+            burn: CurrentUserStore.getBurn(),
+            user: CurrentUserStore.getUser(),
+            supply:CurrentUserStore.getSupply(),
+            totalSupply:CurrentUserStore.getTotalSupply(),
 
         };
         return partialState;
@@ -147,7 +155,7 @@ export default class TodoCompositeView extends ComponentBase<TodoCompositeViewPr
             );
         } else if (this.props.navContext.showHomePanel) {
             return (
-                <HomeHook showSideMenu={this.props.showSideMenu} price={this.state.price} len={this.props.lenguage} width={this.props.width} isStackNav={this.props.isStackNav} entries={this.props.entries} />
+                <HomeHook supply={this.state.supply} totalSupply={this.state.totalSupply}  burn={this.state.burn}  showSideMenu={this.props.showSideMenu} price={this.state.price} len={this.props.lenguage} width={this.props.width} isStackNav={this.props.isStackNav} entries={this.props.entries} />
             );
         } else if (this.props.navContext.todoList.selectedTodoId) {
             return (
@@ -155,7 +163,7 @@ export default class TodoCompositeView extends ComponentBase<TodoCompositeViewPr
             );
         } else if (this.props.navContext.showAbout) {
             return (
-                <AboutHook showSideMenu={this.props.showSideMenu}  isConnected={this.state.isConnected} isLogin={this.props.isLogin} isStackNav={this.props.isStackNav} len={this.props.lenguage} entries={[]} width={this.props.width} />
+                <AboutHook user={this.state.user} showSideMenu={this.props.showSideMenu}  isConnected={this.state.isConnected} isLogin={this.props.isLogin} isStackNav={this.props.isStackNav} len={this.props.lenguage} entries={[]} width={this.props.width} />
             );
         } else if (this.props.navContext.showInvolve) {
             return (
@@ -194,7 +202,7 @@ export default class TodoCompositeView extends ComponentBase<TodoCompositeViewPr
                 <ChatPanel isLogin={this.props.isLogin} ownerId={this.props.ownerId} userId={this.props.user.userId} />
             );
         } else {
-            return <HomeHook showSideMenu={this.props.showSideMenu} price={this.state.price}  len={this.props.lenguage} width={this.props.width} isStackNav={this.props.isStackNav} entries={this.props.entries} />;
+            return <HomeHook totalSupply={this.state.totalSupply}  burn={this.state.burn} supply={this.state.supply}  showSideMenu={this.props.showSideMenu} price={this.state.price}  len={this.props.lenguage} width={this.props.width} isStackNav={this.props.isStackNav} entries={this.props.entries} />;
         }
     }
 

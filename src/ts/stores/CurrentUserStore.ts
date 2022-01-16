@@ -43,9 +43,11 @@ export class CurrentUserStore extends StoreBase {
     private _userMoralis: IdentityModels.userMoralis = {
         createdAt: '',
         updatedAt: '',
+        zatcoin:0,
         emailVerified: false,
         email: '',
         username: '',
+        balance: 0,
         ethAddress:'',
         avatar:'',
     }
@@ -127,6 +129,45 @@ private mensajes:Message[]=[]
 
   }
   
+  private supply: number = 0
+  private totalsupply: number = 0
+  @autoSubscribe
+  getTotalSupply(): number {
+      return this.totalsupply
+  }
+  setTotalSupply(price: number) {
+      
+   
+
+    this.totalsupply = price
+
+  this.trigger()
+  }
+  private burn: number = 0
+  @autoSubscribe
+  getSupply(): number {
+      return this.supply
+  }
+  setSupply(price: number) {
+      
+   
+
+    this.supply = price
+
+  this.trigger()
+  }
+  @autoSubscribe
+  getBurn(): number {
+      return this.burn
+  }
+  setBurn(price: number) {
+      
+   
+
+    this.burn = price
+
+  this.trigger()
+  }
   setPrice(price: number) {
       
    
@@ -381,15 +422,17 @@ setAutores(autor:Autor[]) {
     getUser(): IdentityModels.userMoralis {
         return this._userMoralis
     }
-    setUser(username:string,email:string,createdAt:string,sessionToken:string,updatedAt:string,avatar:string,ethAddress:string,) {
+    setUser(username:string,email:string,createdAt:string,sessionToken:string,updatedAt:string,avatar:string,ethAddress:string,balance:any,zatcoin:any,) {
        this._userMoralis = {
             createdAt,
             updatedAt,
             emailVerified: false,
             ethAddress,
             email,
+            balance,
             username,
             avatar ,
+            zatcoin
         };
         console.log(this._userMoralis)
         this.trigger();

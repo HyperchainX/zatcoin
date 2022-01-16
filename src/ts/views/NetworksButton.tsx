@@ -109,7 +109,7 @@ export default class NetworksButton extends ComponentBase<AccountMenuButtonProps
     render(): JSX.Element | null {
         return (
             <UI.Button ref={this._onMountButton} onPress={this._onPress} iconSlot={iconStyle => (
-                <RX.Image resizeMode='cover' style={{ width: 27, marginRight: 10, height: 27 }} source={this.props.network === "Polygon" ? ImageSource.matic : this.props.network === "Songbird" ? ImageSource.songbird : this.props.network === "Binance" ? ImageSource.bnb : this.props.network === "Avalanche" ? ImageSource.avax : ""} />
+                <RX.Image resizeMode='cover' style={{ width: 27, marginRight: 10, height: 27 }} source={""} />
             )} style={{ root: [{ marginBottom: 2 }], content: [{ width: 150, height: 37, justifyContent: 'center', alignItems: 'center', borderRadius: 11, }], label: _styles.label }
             } elevation={4} variant={"outlined"} label={this.props.network} />
         );

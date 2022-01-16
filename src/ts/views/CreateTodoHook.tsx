@@ -166,7 +166,7 @@ export const CreateTodoHook = ({
       let photo = user.get('avatar')
       let objId = user.get('userId')
       let newBalance = user.get('csbBalance')
-      CurrentUserStore.setUser(username, email, createdAt, sessionToken, updatedAt, photo, newBalance)
+      CurrentUserStore.setUser(username, email, createdAt, sessionToken, updatedAt, photo, newBalance,"","")
 
       await item.save().then((item: any) => {
         // Execute any logic that should take place after the object is saved.

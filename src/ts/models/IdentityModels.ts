@@ -11,6 +11,8 @@ export interface userMoralis {
   emailVerified: boolean;
   updatedAt: string;
   avatar: any;
+  balance: any;
+  zatcoin:any;
   ethAddress: string;
 }
 

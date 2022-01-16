@@ -14,7 +14,7 @@ import { ComponentBase } from 'resub';
 
 import NavContextStore from '../stores/NavContextStore';
 import * as NavModels from '../models/NavModels';
-import { Colors } from '../app/Styles';
+import { Colors, Fonts } from '../app/Styles';
 
 import { PartnerHook } from './PartnerHook';
 import CreateTodoPanel from './CreateTodoPanel';
@@ -39,6 +39,9 @@ interface RootViewState {
     isConnect: boolean;
     lenguage: string
     isSideMenu: boolean;
+    burn:any;
+    totalSupply:number;
+    supply:any;
     owner: string;
     showSideMenu:boolean;
     price:number;
@@ -60,7 +63,13 @@ const _styles = {
         flex: 1,
         alignSelf: 'stretch',
         backgroundColor: Colors.white,
-    }),
+    }),    
+  titleStylefoot: RX.Styles.createTextStyle({
+    font: Fonts.displayRegular,
+    fontSize: 16,
+    color: '#6C757D',
+    alignSelf: 'center'
+  }),
 };
 
 
@@ -95,8 +104,6 @@ export default class RootView extends ComponentBase<RootViewProps, RootViewState
 
     protected _buildState(props: RootViewProps, initState: boolean): Partial<RootViewState> | undefined {
         const newNavContext = NavContextStore.getNavContext();
-
-
         const partialState: Partial<RootViewState> = {
             viewTitle: this._getViewTitle(newNavContext),
             isSideMenu: CurrentUserStore.getSideMenu(),
@@ -111,7 +118,10 @@ export default class RootView extends ComponentBase<RootViewProps, RootViewState
             showSideMenu: CurrentUserStore.getSideMenu(),
             isLogin: CurrentUserStore.getLogin(),
             username: CurrentUserStore.getUserName(),
+            totalSupply: CurrentUserStore.getTotalSupply(),
             width: ResponsiveWidthStore.getWidth(),
+            burn: CurrentUserStore.getBurn(),
+            supply: CurrentUserStore.getSupply(),
             price: CurrentUserStore.getPrice(),
             isStackNav: newNavContext.isStackNav,
             entries: [
@@ -177,31 +187,65 @@ load = async () => {
 const options2 = { chain: "bsc", addresses: "0x958e030e5937414b8b54e4647fb513e348ed90e5" };
 const tokenMetadata = await Moralis.Web3API.token.getTokenMetadata(options2);
       const price = await Moralis.Web3API.token.getTokenPrice(options);
-   console.log("price "+JSON.stringify(price))
-   console.log("price "+JSON.stringify(tokenMetadata))
-   CurrentUserStore.setPrice(parseFloat(price.usdPrice))
-
+         CurrentUserStore.setPrice(parseFloat(price.usdPrice))
 }
     render(): JSX.Element | null {
         if (this.state.navContext.isStackNav) {
             return (
                 <RX.View style={_styles.root} onLayout={this.props.onLayout}>
+                    
                     <Navigator
                         ref={this._onMountNavigator}
                         renderScene={this._onRenderScene}
                     />
+
                 </RX.View>
             );
         } else {
             const compositeContext = this.state.navContext as NavModels.CompositeRootNavContext;
             const showBackButton = this._showBackButton(compositeContext.viewId);
             const showSideMenu = this._showSideMenu();
-
             return (
                 <RX.View style={_styles.root} onLayout={this.props.onLayout}>
- <TopBarComposite showSideMenu={showSideMenu} showBackButton={showBackButton} onBack={this._onBack} width={this.state.width} user={this.state.user} />
+                     
+                        <TopBarComposite showSideMenu={showSideMenu} showBackButton={showBackButton} onBack={this._onBack} width={this.state.width} user={this.state.user} />
                    
                     {this._renderMainView()}
+                    <RX.View style={{flexDirection:'row'}}>
+                    <RX.View style={{alignSelf:'flex-end',width:this.state.showSideMenu?260:80,height:50,backgroundColor:'#23272B'}}/>
+                
+                    <RX.View style={{alignSelf:'flex-end',paddingLeft:40,flexDirection:'row',width:this.state.showSideMenu?this.state.width-260:this.state.width-80,height:50,backgroundColor:'#343A40'}}>
+                    <RX.View style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
+                    <RX.Image source={ImageSource.vector15} style={{     marginRight:10,width: 15, height: 15, }} />
+             
+                   
+                    <RX.Text style={[_styles.titleStylefoot, { marginRight: 20,  }]} >
+                {"Website"}
+              </RX.Text>
+
+              </RX.View>
+
+              <RX.View style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
+                    <RX.Image source={ImageSource.vector14} style={{     marginRight:10,width: 15, height: 15, }} />
+             
+               
+              <RX.Text style={[_styles.titleStylefoot, { marginRight: 20, }]} >
+                {"Telegram"}
+              </RX.Text>
+
+              </RX.View>
+              
+              <RX.View style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
+                    <RX.Image source={ImageSource.vector16} style={{     marginRight:10,width: 15, height: 15, }} />
+             
+               
+         
+              <RX.Text style={[_styles.titleStylefoot, {  marginRight: 20, }]} >
+                {"Twitter"}
+              </RX.Text>
+              </RX.View>
+                    </RX.View>
+                </RX.View>
                 </RX.View>
             );
         }
@@ -309,7 +353,7 @@ const tokenMetadata = await Moralis.Web3API.token.getTokenMetadata(options2);
             case NavModels.NavViewId.Partner:
                 return <PartnerHook isStackNav={this.state.isStackNav} len={this.state.lenguage} />;
             case NavModels.NavViewId.About:
-                return <AboutHook showSideMenu={this.state.showSideMenu} isConnected={this.state.isConnected}  isLogin={this.state.isLogin}  isStackNav={this.state.isStackNav} len={this.state.lenguage} entries={[]} width={this.state.width} />;
+                return <AboutHook user={this.state.user} showSideMenu={this.state.showSideMenu} isConnected={this.state.isConnected}  isLogin={this.state.isLogin}  isStackNav={this.state.isStackNav} len={this.state.lenguage} entries={[]} width={this.state.width} />;
             case NavModels.NavViewId.Involve:
                 return <InvolveHook isStackNav={this.state.isStackNav} len={this.state.lenguage} entries={[]} width={this.state.width} />;
             case NavModels.NavViewId.Road:
@@ -325,7 +369,7 @@ const tokenMetadata = await Moralis.Web3API.token.getTokenMetadata(options2);
             case NavModels.NavViewId.Chats:
                 return <ChatPanel isLogin={this.state.isLogin} ownerId={this.state.ownerId} userId={this.state.user.userId} />;
             case NavModels.NavViewId.Home:
-                return <HomeHook showSideMenu={this.state.showSideMenu} price={this.state.price}  len={this.state.lenguage} width={this.state.width} isStackNav={this.state.isStackNav} entries={this.state.entries} />;
+                return <HomeHook  totalSupply={this.state.totalSupply}  burn={this.state.burn}  supply={this.state.supply}  showSideMenu={this.state.showSideMenu} price={this.state.price}  len={this.state.lenguage} width={this.state.width} isStackNav={this.state.isStackNav} entries={this.state.entries} />;
             case NavModels.NavViewId.ViewTodo:
                 const viewContext = this._findNavContextForRoute(viewId) as NavModels.ViewTodoViewNavContext;
                 if (!viewContext) {
@@ -333,7 +377,7 @@ const tokenMetadata = await Moralis.Web3API.token.getTokenMetadata(options2);
                 }
                 return <ViewTodoPanel todoId={viewContext.todoId} />;
             default:
-                return <HomeHook showSideMenu={this.state.showSideMenu} price={this.state.price}  len={this.state.lenguage} width={this.state.width} isStackNav={this.state.isStackNav} entries={this.state.entries} />;
+                return <HomeHook burn={this.state.burn} totalSupply={this.state.totalSupply}    supply={this.state.supply}  showSideMenu={this.state.showSideMenu} price={this.state.price}  len={this.state.lenguage} width={this.state.width} isStackNav={this.state.isStackNav} entries={this.state.entries} />;
         }
     }
 
@@ -353,7 +397,9 @@ const tokenMetadata = await Moralis.Web3API.token.getTokenMetadata(options2);
 
     private _renderMainView(): JSX.Element | null {
         if (this.state.navContext instanceof NavModels.TodoRootNavContext) {
+      
             return <TodoCompositeView isLogin={this.state.isLogin} ownerId={this.state.ownerId} owner={this.state.owner} username={this.state.username} autores={this.state.autores} mensajes={this.state.mensajes} lenguage={this.state.lenguage} user={this.state.user} width={this.state.width} isStackNav={this.state.isStackNav} isConnect={this.state.isConnect} entries={this.state.entries} showSideMenu={this.state.isSideMenu} navContext={this.state.navContext} />;
+   
         } else {
             assert.fail('Unexpected main view type');
             return null;

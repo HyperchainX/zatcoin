@@ -6,91 +6,100 @@ const Moralis = require('moralis');
 const serverUrl = "https://ua5tcnx9qd3m.usemoralis.com:2053/server";
 const appId = "NWvZjcWdUyCimboRDaguhLkaBI6xGD68vxIR0fpm";
 
+import * as _ from 'lodash';
 import ImageSource from 'modules/images';
 Moralis.start({ serverUrl, appId });
+
 const _styles = {
   slider: RX.Styles.createViewStyle({
     alignSelf: 'center',
-    overflow: 'hidden' // for custom animations
+    overflow: 'hidden', // for custom animations
   }),
   sliderContentContainer: RX.Styles.createViewStyle({
-    alignSelf: 'center'
+    alignSelf: 'center',
   }),
   titleStyle55: RX.Styles.createTextStyle({
     font: Fonts.displayBold,
     fontSize: 18,
     textAlign: 'center',
     color: 'white',
-    alignSelf: 'center'
+    alignSelf: 'center',
   }),
   titleStyle0: RX.Styles.createTextStyle({
     font: Fonts.displayBold,
     fontSize: 16,
     textAlign: 'center',
     color: 'black',
-    alignSelf: 'center'
+    alignSelf: 'center',
   }),
   titleStyleBig: RX.Styles.createTextStyle({
     font: Fonts.displayBold,
     fontSize: 18,
     textAlign: 'right',
     color: 'white',
-    alignSelf: 'center'
+    alignSelf: 'center',
   }),
   titleStyle5: RX.Styles.createTextStyle({
     font: Fonts.displayBold,
     fontSize: 16,
     color: 'white',
-    alignSelf: 'center'
+    alignSelf: 'center',
   }),  
   titleStylewww: RX.Styles.createTextStyle({
     font: Fonts.displayBold,
     fontSize: 18,
     textAlign: 'center',
     color: '#0D6EFD',
-    alignSelf: 'center'
+    alignSelf: 'center',
   }),
   titleStyleww: RX.Styles.createTextStyle({
     font: Fonts.displayBold,
     fontSize: 18,
     textAlign: 'center',
     color: '#343A40',
-    alignSelf: 'center'
+    alignSelf: 'center',
   }),
   titleStylew: RX.Styles.createTextStyle({
     font: Fonts.displayBold,
     fontSize: 42,
     textAlign: 'center',
     color: 'white',
-    alignSelf: 'center'
+    alignSelf: 'center',
+  }),
+  titleStylewa: RX.Styles.createTextStyle({
+    font: Fonts.displayBold,
+    fontSize: 16,
+    textAlign: 'left',
+    color: '#0DCAF0',
+    alignSelf: 'center',
   }),
   titleStyle: RX.Styles.createTextStyle({
     font: Fonts.displayRegular,
     fontSize: 22,
     textAlign: 'left',
     color: '#0DCAF0',
-    alignSelf: 'center'
+    alignSelf: 'center',
   }),
   titleStyleN: RX.Styles.createTextStyle({
     font: Fonts.displayBold,
     fontSize: 22,
     textAlign: 'left',
     color: 'white',
-    alignSelf: 'center'
+    alignSelf: 'center',
   }),
   titleStyle223: RX.Styles.createTextStyle({
     font: Fonts.displayBold,
     fontSize: 22,
     textAlign: 'center',
     color: '#6C757D',
-    alignSelf: 'center'
+    alignSelf: 'center',
   }),
   titleStyle5rojo: RX.Styles.createTextStyle({
     font: Fonts.displayRegular,
     fontSize: 16,
     textAlign: "right",
     color: 'red',
-    alignSelf: 'center'
+    alignSelf: 'center',
   }),
   titleStyle5naranja: RX.Styles.createTextStyle({
     font: Fonts.displayRegular,
@@ -212,6 +221,8 @@ interface Entries {
   title: string;
   content: string;
 }
+
+
 const { Carousel } = require('reactxp-carousel')
 
 
@@ -229,7 +240,7 @@ import {
   CategoryScale,
   LinearScale,
   BarElement,
-  LineElement,
+  LineElement,  
   Title,
   Tooltip,
   Legend,
@@ -248,6 +259,7 @@ export const AboutHook = ({
   entries,isLogin,
   isStackNav,
   width,
+  user,
   isConnected,
   showSideMenu,
   len,
@@ -255,7 +267,7 @@ export const AboutHook = ({
   entries: Entries[];
   width: number;
   showSideMenu:boolean,
-  
+  user:any,
   isConnected:boolean;
   isStackNav: boolean;
   len: string;
@@ -264,11 +276,8 @@ export const AboutHook = ({
 
   
   async function onLogOut() {
-
-
     CurrentUserStore.setLogin(false)
-    CurrentUserStore.setUser('', '', '', '', '', '', '')
-
+    CurrentUserStore.setUser('', '', '', '', '', '', '',"",'')
 
     NavContextStore.navigateToTodoList(undefined, false, false,false,true)
     await Moralis.User.logOut();
@@ -287,27 +296,24 @@ export const AboutHook = ({
         let address = user.get('ethAddress')
         let email = user.get('correo')
         const chainId = await Moralis.getChainId();
-        console.log("email "+email)
-        console.log("email "+username)
+        const balance = await Moralis.Web3API.account.getNativeBalance();
+        const options = { chain: 'bsc', address: address, }
+        const tokens = await Moralis.Web3API.account.getTokenBalances(options);
+        console.log("zatcoin "+JSON.stringify(tokens))
 
+let zatcoin = _.filter(tokens, todo => todo.token_address == "0x958e030e5937414b8b54e4647fb513e348ed90e5");
+        console.log("zatcoin2 "+JSON.stringify(zatcoin))
         if(email!==''){
 
           CurrentUserStore.setConnect(true)
         }
         let avatar = user.get('avatar')
         if (avatar === undefined) {
-          CurrentUserStore.setUser(username, email, createdAt, '', updatedAt, '', address)
+          CurrentUserStore.setUser(username, email, createdAt, '', updatedAt, '', address,balance,zatcoin)
         } else {
-          CurrentUserStore.setUser(username, email, createdAt, '', updatedAt, avatar, address)
+          CurrentUserStore.setUser(username, email, createdAt, '', updatedAt, avatar, address,balance,zatcoin)
         }
-        if (address === '0xfd2b6f391066d8eafa910fe73ea90c197c21d338' || address === '0x069dffd8d5e00952d956aef824d3e3dcdadeea63' || address === '0X069DFFD8D5E00952D956AEF824D3E3DCDADEEA63' || address === '0x5e569bbc0a04f1b01cb76905f40557647536e6b1') {
-  
-          await CurrentUserStore.setIsAdmin(true)
-  
-        } else {
-          await CurrentUserStore.setIsAdmin(false)
-        }
-  
+
   
         CurrentUserStore.setLogin(true)
   
@@ -362,7 +368,6 @@ const _confirmDeleteDialogId = 'delete';
 
   const _onPressModal = (e: RX.Types.SyntheticEvent) => {
     e.stopPropagation();
-
     const dialog = (
         <SimpleDialog
             dialogId={_confirmDeleteDialogId}
@@ -401,9 +406,7 @@ const _confirmDeleteDialogId = 'delete';
   const labels = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
   const data = {
     labels,
-
     datasets: [
-
       {
         label: 'Dataset 1',
         data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
@@ -411,11 +414,13 @@ const _confirmDeleteDialogId = 'delete';
       }
     ],
   };
+
   useEffect(() => {
     console.log("storage " + JSON.stringify(RX.Storage.getItem('pay')))
   }, [])
+  
   return (<RX.View style={{ flex: 1, alignSelf:'stretch',justifyContent:'center',alignItems:'center',backgroundColor: '#212529' }} >
-                       <RX.View style={{ flexDirection: 'row', width:showSideMenu?1000: 1200,marginTop:30,justifyContent: 'flex-start', alignItems: 'center',alignSelf:"center", }}>
+                       <RX.View style={{ flexDirection: 'row', width:showSideMenu?1000: 1200,marginTop:30,marginBottom:10,justifyContent: 'flex-start', alignItems: 'center',alignSelf:"center", }}>
   <RX.Image source={ImageSource.vector8} style={{     marginRight:10,width: 15, height: 15, }} />
         
     <RX.Text style={[_styles.titleStyleBig, {alignSelf: 'flex-start', }]} >
@@ -426,28 +431,22 @@ const _confirmDeleteDialogId = 'delete';
   {isLogin === false ? 
   <RX.View style={{ flex:1,alignSelf: 'stretch',marginTop: 0, paddingBottom: 20, marginBottom: 10, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
     <RX.View style={{ position:'relative',marginBottom: 30, height: 300, width: showSideMenu? width*0.7:  width*0.8, justifyContent: 'center', alignItems: 'center', alignSelf: 'flex-start', }}>
-
       <UI.Paper elevation={10} style={{ root: {margin:10,elevation: 0, position: 'absolute', justifyContent: "center", alignItems: "center", borderRadius: 20, width:showSideMenu? width*0.7:  width*0.75, backgroundColor: '#343A40', height: 250 } }} >
-
         <RX.View style={{ justifyContent: 'center', alignItems: 'center', }}>
-
-            
-
             <RX.Text style={[_styles.titleStyleN, { textAlign:'center',alignSelf: 'center', marginRight: 20, marginBottom: 10 }]} >
               {"Connect Your wallet to get wallet profile"}
             </RX.Text>
-           
-                            <UI.Button onPress={_onPressTodo}  style={{ content: [{ marginTop:20,marginBottom:20,width: 160, borderWidth:0,borderRadius: 11,backgroundColor:'#0DCAF0', }], label: _styles.label }
-                            } elevation={4} variant={"outlined"} label="Connect Now" />
-                          
+
+              <UI.Button onPress={_onPressTodo}  style={{ content: [{ marginTop:20,marginBottom:20,width: 160, borderWidth:0,borderRadius: 11,backgroundColor:'#0DCAF0', }], label: _styles.label }} elevation={4} variant={"outlined"} label="Connect Now" />
+                            
         </RX.View>
-       
       </UI.Paper>
     </RX.View>
-
-  </RX.View>  :  <RX.View style={{  flex:1,alignSelf:'stretch',justifyContent: 'center', alignItems: 'center' }}>
+  </RX.View>  
+  : 
+   <RX.View style={{  flex:1,alignSelf:'stretch',justifyContent: 'center', alignItems: 'center' }}>
                          
-                            <UI.Paper elevation={10} style={{ root: {margin:10, justifyContent: "center", alignItems: "center", borderRadius: 20, width: showSideMenu? width*0.7:  width*0.75, backgroundColor: '#343A40', height: 420 } }} >
+                            <UI.Paper elevation={10} style={{ root: {margin:10, justifyContent: "center", alignItems: "center", borderRadius: 20, width: showSideMenu? width*0.7:  width*0.75, backgroundColor: '#343A40', height: 350 } }} >
                       
                               <RX.View style={{ justifyContent: 'center', alignItems: 'center', }}>
                       
@@ -462,39 +461,43 @@ const _confirmDeleteDialogId = 'delete';
                                   <RX.View style={{marginRight:30,marginLeft:30,justifyContent: 'center', alignItems: 'center', }}>
 
                                   <RX.Text style={[_styles.titleStyle5, { alignSelf: 'center', marginRight: 20, marginTop: 10, marginBottom: 10 }]} >
-                {"WALLET ADDRESS"}
-              </RX.Text>
-              <RX.Text style={[_styles.titleStyle, { alignSelf: 'center', marginRight: 20, marginBottom: 10 }]} >
-                {"0x26D...26A5"}
-              </RX.Text>
+                                  {"WALLET ADDRESS"}
+                                </RX.Text>
+
+                                <RX.Text style={[_styles.titleStylewa, { alignSelf: 'center', marginRight: 20, marginBottom: 10 }]} >
+                                  { user.ethAddress.substring(0, 5).toUpperCase() + '...' + user.ethAddress.substring(user.ethAddress.length - 3, user.ethAddress.length).toUpperCase()}
+                                </RX.Text>
                               </RX.View>  
                               <RX.View style={{marginRight:30,marginLeft:30,justifyContent: 'center', alignItems: 'center', }}>
 
-<RX.Text style={[_styles.titleStyle5, { alignSelf: 'center', marginRight: 20, marginTop: 10, marginBottom: 10 }]} >
-{"BNB BALANCE"}
-</RX.Text>
-<RX.Text style={[_styles.titleStyle, { alignSelf: 'center', marginRight: 20, marginBottom: 10 }]} >
-{"0.125 BNB"}
-</RX.Text>
-</RX.View>    
-    <RX.View style={{ marginRight:30,marginLeft:30,justifyContent: 'center', alignItems: 'center', }}>
+                              <RX.Text style={[_styles.titleStyle5, { alignSelf: 'center', marginRight: 20, marginTop: 10, marginBottom: 10 }]} >
+                              {"BNB BALANCE"}
+                              </RX.Text>
 
-<RX.Text style={[_styles.titleStyle5, { alignSelf: 'center', marginRight: 20, marginTop: 10, marginBottom: 10 }]} >
-{"ZATCOIN BALANCE"}
-</RX.Text>
-<RX.Text style={[_styles.titleStyle, { alignSelf: 'center', marginRight: 20, marginBottom: 10 }]} >
-{"562 ZATCOIN"}
-</RX.Text>
-</RX.View>     
-    <RX.View style={{marginRight:30,marginLeft:30,justifyContent: 'center', alignItems: 'center', }}>
+                              <RX.Text style={[_styles.titleStyle, { alignSelf: 'center', marginRight: 20, marginBottom: 10 }]} >
+                              {user.balance.balance.toString()+" BNB"}
+                              </RX.Text>
+                              
+              </RX.View>  
 
-<RX.Text style={[_styles.titleStyle5, { alignSelf: 'center', marginRight: 20, marginTop: 10, marginBottom: 10 }]} >
-{"ZATCOIN STATUS"}
-</RX.Text>
-<RX.Text style={[_styles.titleStyle, { alignSelf: 'center', marginRight: 20, marginBottom: 10 }]} >
-{isConnected==true?"Registered Account":"Not Registered"}
-</RX.Text>
-</RX.View>   
+                  <RX.View style={{ marginRight:30,marginLeft:30,justifyContent: 'center', alignItems: 'center', }}>
+
+              <RX.Text style={[_styles.titleStyle5, { alignSelf: 'center', marginRight: 20, marginTop: 10, marginBottom: 10 }]} >
+              {"ZATCOIN BALANCE"}
+              </RX.Text>
+              <RX.Text style={[_styles.titleStyle, { alignSelf: 'center', marginRight: 20, marginBottom: 10 }]} >
+              {(user.zatcoin.length==0?0:user.zatcoin[0].balance)+" ZATCOINS"}
+              </RX.Text>
+              </RX.View>     
+                  <RX.View style={{marginRight:30,marginLeft:30,justifyContent: 'center', alignItems: 'center', }}>
+
+              <RX.Text style={[_styles.titleStyle5, { alignSelf: 'center', marginRight: 20, marginTop: 10, marginBottom: 10 }]} >
+              {"ZATCOIN STATUS"}
+              </RX.Text>
+              <RX.Text style={[_styles.titleStyle, { alignSelf: 'center', marginRight: 20, marginBottom: 10 }]} >
+              {isConnected==true?"Registered Account":"Not Registered"}
+              </RX.Text>
+              </RX.View>   
 
                               </RX.View>      
                               </RX.View>
@@ -502,7 +505,7 @@ const _confirmDeleteDialogId = 'delete';
                                             } elevation={4} variant={"outlined"} label="Disconnect" />
                             </UI.Paper>
                          
-                            {isConnected==true?
+                            { isConnected==true ?
                             <RX.View style={{justifyContent:'center',alignItems:'center',flexDirection:'row',marginBottom:20,width:showSideMenu? width*0.8:  width*0.85}}>
                           <UI.Paper elevation={10} style={{ root: {margin:10, justifyContent: "center", alignItems: "center", borderRadius: 20, width: 300, backgroundColor: '#0DCAF0', height: 200 } }} >
                 
@@ -510,29 +513,27 @@ const _confirmDeleteDialogId = 'delete';
                 <RX.View style={{ flexDirection: 'row', width:250,height:30,marginTop:30,marginBottom:10,justifyContent: 'center', alignItems: 'center',alignSelf:"center", }}>
                       
                        <RX.Image source={ImageSource.vector9} style={{marginRight:10,width: 20, height: 20, }} />
-        
-<RX.Text style={[_styles.titleStyle5, {width:165 ,fontSize:20,height:30,color:'#343A40',alignSelf: 'center', marginRight: 0,}]} >
-{"ZATCOIN TIMER"}
-</RX.Text>
+                                
+                        <RX.Text style={[_styles.titleStyle5, {width:165 ,fontSize:20,height:30,color:'#343A40',alignSelf: 'center', marginRight: 0,}]} >
+                        {"ZATCOIN TIMER"}
+                        </RX.Text>
 
-    </RX.View>
+                    </RX.View>
 
-    <RX.View style={{ flex:1,alignSelf:'stretch',justifyContent: 'center', alignItems: 'center', height:140,marginBottom:20}}>
-             
+                    <RX.View style={{ flex:1,alignSelf:'stretch',justifyContent: 'center', alignItems: 'center', height:140,marginBottom:20}}>
+                            
 
-<RX.Text style={[_styles.titleStylew, { width:150,height:50,alignSelf: 'center', marginRight: 0, marginBottom: 10 }]} >
-{"16:00"}
-</RX.Text>
+                <RX.Text style={[_styles.titleStylew, { width:150,height:50,alignSelf: 'center', marginRight: 0, marginBottom: 10 }]} >
+                {"16:00"}
+                </RX.Text>
 
-<RX.Text style={[_styles.titleStyleww, {  width:100,height:30,alignSelf: 'center', marginRight: 0, marginBottom: 0 }]} >
-{"HOUR"}
-</RX.Text>
-<RX.Text style={[_styles.titleStylewww, { width:100,height:30,alignSelf: 'center', marginRight: 0, marginBottom: 10 }]} >
-{"UTC"}
-</RX.Text>
-</RX.View> 
-                    
-        
+                <RX.Text style={[_styles.titleStyleww, {  width:100,height:30,alignSelf: 'center', marginRight: 0, marginBottom: 0 }]} >
+                {"HOUR"}
+                </RX.Text>
+                <RX.Text style={[_styles.titleStylewww, { width:100,height:30,alignSelf: 'center', marginRight: 0, marginBottom: 10 }]} >
+                {"UTC"}
+                </RX.Text>
+                </RX.View> 
                
               </UI.Paper>
               
@@ -550,7 +551,6 @@ const _confirmDeleteDialogId = 'delete';
     </RX.View>
 
     <RX.View style={{ flex:1,alignSelf:'stretch',justifyContent: 'center', alignItems: 'center', height:140,marginBottom:20}}>
-             
 
 <RX.Text style={[_styles.titleStylew, { width:150,height:50,alignSelf: 'center', marginRight: 0, marginBottom: 10 }]} >
 {"73"}
@@ -563,9 +563,6 @@ const _confirmDeleteDialogId = 'delete';
 {"32 US$"}
 </RX.Text>
 </RX.View> 
-                    
-        
-               
               </UI.Paper>
 
               <UI.Paper elevation={10} style={{ root: {margin:10, justifyContent: "center", alignItems: "center", borderRadius: 20, width: 300, backgroundColor: '#0DCAF0', height: 200 } }} >
@@ -582,8 +579,6 @@ const _confirmDeleteDialogId = 'delete';
     </RX.View>
 
     <RX.View style={{ flex:1,alignSelf:'stretch',justifyContent: 'center', alignItems: 'center', height:140,marginBottom:20}}>
-             
-
 <RX.Text style={[_styles.titleStylew, { width:150,height:50,alignSelf: 'center', marginRight: 0, marginBottom: 10 }]} >
 {"273"}
 </RX.Text>

@@ -5,6 +5,7 @@
 * Main entry point for the app, common to both native and web.
 */
 
+import * as abi from './abi';
 import { DbProvider } from 'nosqlprovider';
 import * as RX from 'reactxp';
 import * as SyncTasks from 'synctasks';
@@ -46,7 +47,6 @@ import { loadStripe } from '@stripe/stripe-js';
 
 const stripePromise = loadStripe('pk_test_51JXtokLfVewAaHPMDAbIYdoYIhfxdG8M6FWB4pmVUxN7j5MkXPrztUSK17eSroZGR2OApvpUh9WB1kI63OnaWw5600oXOayr8a');
 
-import * as abi from './abi';
 
 import { Elements, } from '@stripe/react-stripe-js';
 interface Item {
@@ -128,13 +128,34 @@ export default abstract class AppBootstrapper {
             exchange: "PancakeSwapv2"
           };
 
-const options2 = { chain: "bsc", addresses: "0x958e030e5937414b8b54e4647fb513e348ed90e5" };
-//const tokenMetadata = await Moralis.Web3API.token.getTokenMetadata(options2);
           const price = await Moralis.Web3API.token.getTokenPrice(options);
        console.log("price "+JSON.stringify(price))
+
   //     console.log("price "+JSON.stringify(tokenMetadata))
        CurrentUserStore.setPrice(parseFloat(price.usdPrice))
 
+       
+       const options3 = {
+        contractAddress: '0x958e030e5937414b8b54e4647fb513e348ed90e5',
+        functionName: "balanceOf",
+        abi: abi.tokenContractAbi,
+        params: {account:"0x000000000000000000000000000000000000dead"},
+      };
+      const balanceOf = await Moralis.executeFunction(options3);
+  
+      const options4 = {
+        contractAddress: '0x958e030e5937414b8b54e4647fb513e348ed90e5',
+        functionName: "totalSupply",
+        abi: abi.tokenContractAbi,
+      };
+      const totalSupply = await Moralis.executeFunction(options4);
+  
+      console.log(balanceOf);
+console.log("burn "+balanceOf)
+CurrentUserStore.setBurn(parseFloat(balanceOf))
+CurrentUserStore.setSupply(totalSupply-parseFloat(balanceOf))
+
+CurrentUserStore.setTotalSupply(totalSupply)
     }
     loadChats = async (username: string) => {
 
@@ -211,7 +232,7 @@ const options2 = { chain: "bsc", addresses: "0x958e030e5937414b8b54e4647fb513e34
             let csbBalance = item.csbBalance
             let objId = item.userId
 
-            CurrentUserStore.setUser(username, email, createdAt, sessionToken, updatedAt, avatar, "")
+            CurrentUserStore.setUser(username, email, createdAt, sessionToken, updatedAt, avatar, "","","")
            
 
         }

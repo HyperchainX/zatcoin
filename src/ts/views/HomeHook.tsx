@@ -228,12 +228,18 @@ export const HomeHook = ({
   showSideMenu,
   len,
   price,
+  burn,
+  supply,
+  totalSupply,
 }: {
   entries: Entries[];
   width: number;
   showSideMenu: boolean;
   isStackNav: boolean;
+  supply:number;
   price:number;
+  burn:number;
+  totalSupply:number;
   len: string;
 }) => {
 
@@ -343,32 +349,32 @@ export const HomeHook = ({
 
   const [isPlaying, setPlaying] = useState(false)
   return (<RX.View style={{ flex: 1, alignSelf:'stretch',justifyContent:'center',alignItems:'center',backgroundColor: '#212529' }} >
-                     <RX.View style={{width: 350, height: 320,borderRadius:40,marginBottom:0}}>
-                  
-                      
-      <RXVideo
-        source={'https://res.cloudinary.com/indexcoorp/video/upload/v1642202319/FINAL_RENDER_001_1_tnklob.mp4'}
-        style={{  flex:1,alignSelf:'stretch',borderRadius:40 }}
-        loop={true}
-        
-        onCanPlay={_playVideo}
-        showControls={false}
-
-        ref={_onMountVideo}
-      />
+                   
+                     <RX.View style={{width: 320, height: 180,borderRadius:12,marginTop:100,marginBottom:0}}>
+                                          
+                          <RXVideo
+                            source={'https://res.cloudinary.com/indexcoorp/video/upload/v1642202319/FINAL_RENDER_001_1_tnklob.mp4'}
+                            style={{ width: 320, height: 180,borderRadius:12, }}
+                            loop={true}        
+                            onCanPlay={_playVideo}
+                            showControls={false}
+                            ref={_onMountVideo}
+                          />
                     
                       </RX.View>
-                       <RX.View style={{ flexDirection: 'row', width:showSideMenu?1000: 1200,marginTop:10,justifyContent: 'flex-start', alignItems: 'center',alignSelf:"center", }}>
+
+
+                       <RX.View style={{ flexDirection: 'row', width:showSideMenu?1000: 1200,marginTop:0,justifyContent: 'flex-start', alignItems: 'center',alignSelf:"center", }}>
                        <RX.Image source={ImageSource.vector8} style={{     marginRight:10,width: 15, height: 15, }} />
-        
-    
-                        <RX.Text style={[_styles.titleStyleBig, {alignSelf: 'center', }]} >
+            
+      <RX.Text style={[_styles.titleStyleBig, {alignSelf: 'center', }]} >
       {"TOKEN INFO."}
     </RX.Text>
     
     </RX.View>
-    <RX.View style={{ height:170, marginTop: 10, paddingBottom: 60, marginBottom: 10, alignSelf: 'stretch', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-      <RX.View style={{ position:'relative',marginBottom: 30, height: 160, width:showSideMenu?380: 460, justifyContent: 'center', alignItems: 'center', alignSelf: 'flex-start', }}>
+
+    <RX.View style={{ height:180, marginTop: 10, marginBottom: 0, alignSelf: 'stretch', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+      <RX.View style={{ position:'relative',marginBottom: 15, height: 160, width:showSideMenu?380: 460, justifyContent: 'center', alignItems: 'center', alignSelf: 'flex-start', }}>
 
         <UI.Paper elevation={10} style={{ root: {margin:20,elevation: 0, position: 'absolute', justifyContent: "center", alignItems: "flex-start", borderRadius: 8, width: showSideMenu?350: 440, backgroundColor: '#343A40', height: 135 } }} >
 
@@ -378,12 +384,12 @@ export const HomeHook = ({
               <RX.Text style={[_styles.titleStyle5, { alignSelf: 'flex-start', marginRight: 20, marginTop: 10, marginBottom: 10 }]} >
                 {"Zatcoin Price"}
               </RX.Text>
-{price==0?
+              {price==0?
               <RX.Text style={[_styles.titleStyle, { alignSelf: 'flex-end', marginRight: 20, marginBottom: 10 }]} >
                 {"Loading.."}
               </RX.Text>:
               <RX.Text style={[_styles.titleStyle, { alignSelf: 'flex-end', marginRight: 20, marginBottom: 10 }]} >
-                {"$ "+price}
+                {"$ "+price.toString().substring(0, 10).toUpperCase() }
               </RX.Text>}
               </RX.View>
           </RX.View>
@@ -397,9 +403,14 @@ export const HomeHook = ({
         </RX.View>
 
       </RX.View>
+
+
+
+      
+      <RX.View style={{  height:180,marginTop: 0, paddingBottom: 0, marginBottom: 130, alignSelf: 'stretch', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
       <RX.View style={{ position:'relative',marginBottom: 30, height: 160, width: showSideMenu?380: 460, justifyContent: 'center', alignItems: 'center', alignSelf: 'flex-start', }}>
 
-<UI.Paper elevation={10} style={{ root: {margin:20,elevation: 0, position: 'absolute', justifyContent: "center", alignItems: "flex-start", borderRadius: 8, width: showSideMenu?350: 440, backgroundColor: '#343A40', height: 135 } }} >
+        <UI.Paper elevation={10} style={{ root: {margin:20,elevation: 0, position: 'absolute', justifyContent: "center", alignItems: "flex-start", borderRadius: 8, width: showSideMenu?350: 440, backgroundColor: '#343A40', height: 135 } }} >
 
   <RX.View style={{ flexDirection: 'row', paddingLeft:15,justifyContent: 'center', alignItems: 'center', }}>
 
@@ -407,10 +418,15 @@ export const HomeHook = ({
       <RX.Text style={[_styles.titleStyle5, { alignSelf: 'flex-start', marginRight: 20, marginTop: 10, marginBottom: 10 }]} >
         {"Circulating Supply"}
       </RX.Text>
-
+      {supply==0?
+              <RX.Text style={[_styles.titleStyle, {alignSelf: 'flex-end', marginRight: 60, marginBottom: 10 }]} >
+                {"Loading.."}
+              </RX.Text>:
+             
       <RX.Text style={[_styles.titleStyle, { alignSelf: 'flex-end', marginRight: 20, marginBottom: 10 }]} >
-        {"380,867 Zatcoin"}
-      </RX.Text>
+      {supply+" Zatcoins"}
+    </RX.Text>
+    }
       </RX.View>
   </RX.View>
  
@@ -425,7 +441,8 @@ export const HomeHook = ({
 </RX.View>
 
 </RX.View>
-<RX.View style={{ position:'relative',marginBottom: 30, height: 160, width: showSideMenu?380: 460, justifyContent: 'center', alignItems: 'center', alignSelf: 'flex-start', }}>
+  </RX.View>
+<RX.View style={{ position:'relative',marginBottom: 15, height: 160, width: showSideMenu?380: 460, justifyContent: 'center', alignItems: 'center', alignSelf: 'flex-start', }}>
 
         <UI.Paper elevation={10} style={{ root: {margin:20,elevation: 0, position: 'absolute', justifyContent: "center", alignItems: "flex-start", borderRadius: 8, width: showSideMenu?350: 440, backgroundColor: '#343A40', height: 135 } }} >
 
@@ -435,10 +452,14 @@ export const HomeHook = ({
               <RX.Text style={[_styles.titleStyle5, { alignSelf: 'flex-start', marginRight: 20, marginTop: 10, marginBottom: 10 }]} >
                 {"MarketCap"}
               </RX.Text>
-
+              {totalSupply==0?
               <RX.Text style={[_styles.titleStyle, { alignSelf: 'flex-end', marginRight: 20, marginBottom: 10 }]} >
-                {"$2,357,145"}
-              </RX.Text>
+                {"Loading.."}
+              </RX.Text>:
+              
+              <RX.Text style={[_styles.titleStyle, { alignSelf: 'flex-end', marginRight: 20, marginBottom: 10 }]} >
+                {"$ "+((totalSupply-burn)*price)}
+              </RX.Text>}
               </RX.View>
           </RX.View>
          
@@ -455,7 +476,7 @@ export const HomeHook = ({
       </RX.View>
 
     </RX.View>
-    <RX.View style={{  height:170,marginTop: 0, paddingBottom: 0, marginBottom: 30, alignSelf: 'stretch', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+    <RX.View style={{  height:180,marginTop: 0, paddingBottom: 0, marginBottom: 130, alignSelf: 'stretch', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
       <RX.View style={{ position:'relative',marginBottom: 30, height: 160, width: showSideMenu?380: 460, justifyContent: 'center', alignItems: 'center', alignSelf: 'flex-start', }}>
 
         <UI.Paper elevation={10} style={{ root: {margin:20,elevation: 0, position: 'absolute', justifyContent: "center", alignItems: "flex-start", borderRadius: 8, width: showSideMenu?350: 440, backgroundColor: '#343A40', height: 135 } }} >
@@ -466,10 +487,13 @@ export const HomeHook = ({
               <RX.Text style={[_styles.titleStyle5, { alignSelf: 'flex-start', marginRight: 20, marginTop: 10, marginBottom: 10 }]} >
                 {"Total Supply"}
               </RX.Text>
-
+              {totalSupply==0?
               <RX.Text style={[_styles.titleStyle, { alignSelf: 'flex-end', marginRight: 20, marginBottom: 10 }]} >
-                {"2,000,000,000 Zatcoin"}
-              </RX.Text>
+                {"Loading.."}
+              </RX.Text>:
+              <RX.Text style={[_styles.titleStyle, { alignSelf: 'flex-end', marginRight: 20, marginBottom: 10 }]} >
+                {totalSupply+ " Zatcoin" }
+              </RX.Text>}
               </RX.View>
           </RX.View>
          
@@ -512,20 +536,24 @@ export const HomeHook = ({
 </RX.View>
 
 </RX.View>
-<RX.View style={{ position:'relative',marginBottom: 30, height: 160, width: showSideMenu?380: 460, justifyContent: 'center', alignItems: 'center', alignSelf: 'flex-start', }}>
+<RX.View style={{ position:'relative',marginBottom: 15, height: 160, width: showSideMenu?380: 460, justifyContent: 'center', alignItems: 'center', alignSelf: 'flex-start', }}>
 
         <UI.Paper elevation={10} style={{ root: {margin:20,elevation: 0, position: 'absolute', justifyContent: "center", alignItems: "flex-start", borderRadius: 8, width: showSideMenu?350: 440, backgroundColor: '#343A40', height: 135 } }} >
 
+        
           <RX.View style={{ flexDirection: 'row', paddingLeft:15,justifyContent: 'center', alignItems: 'center', }}>
 
             <RX.View  style={{}}>
               <RX.Text style={[_styles.titleStyle5, { alignSelf: 'flex-start', marginRight: 20, marginTop: 10, marginBottom: 10 }]} >
                 {"Total Burned Tokens"}
               </RX.Text>
-
-              <RX.Text style={[_styles.titleStyle, { alignSelf: 'flex-end', marginRight: 20, marginBottom: 10 }]} >
-                {"100,000 Zatcoin"}
-              </RX.Text>
+              {burn==0?
+              <RX.Text style={[_styles.titleStyle, { alignSelf: 'flex-end', marginRight: 60, marginBottom: 10 }]} >
+                {"Loading.."}
+              </RX.Text>:
+               <RX.Text style={[_styles.titleStyle, { alignSelf: 'flex-start', marginRight: 20, marginBottom: 10 }]} >
+               {burn+" Zatcoins"}
+              </RX.Text>}
               </RX.View>
           </RX.View>
          
@@ -549,4 +577,5 @@ export const HomeHook = ({
 
 import * as RX from 'reactxp'
 import { useEffect, useState } from 'react';
+import { userInfo } from 'os';
 

@@ -113,7 +113,7 @@ export const EditProfile = ({
     let sessionToken = user.get('sessionToken')
     let updatedAt = user.get('updatedAt')
     let address = user.get('ethAddress')
-    CurrentUserStore.setUser(username, '', createdAt, sessionToken, updatedAt, avatar, address)
+    CurrentUserStore.setUser(username, '', createdAt, sessionToken, updatedAt, avatar, address,'','')
 
 
 
