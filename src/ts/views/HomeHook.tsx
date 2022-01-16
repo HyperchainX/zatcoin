@@ -405,8 +405,8 @@ export const HomeHook = ({
     </RX.Text>
     
     </RX.View>} 
-{isTiny? <RX.View style={{ 
-   alignSelf: 'stretch', justifyContent:'center',alignItems:'center',flex:1 }}>
+{isTiny? <RX.ScrollView style={{ 
+   alignSelf: 'stretch', flex:1 }}>
   
   <RX.View  style={{justifyContent:'center',alignItems:'center',height: 80,width: width*0.9,}}>
 <UI.Paper elevation={10} style={{ root: {margin:5,elevation: 0, position: 'absolute', justifyContent: "center", alignItems: "center", borderRadius: 8, backgroundColor: '#343A40', height: 70,width: width*0.8,  } }} >
@@ -538,7 +538,7 @@ export const HomeHook = ({
 </UI.Paper>
 
 </RX.View>
-   </RX.View>:
+   </RX.ScrollView>:
       <RX.View style={{  height:180,marginTop: 0, paddingBottom: 0, marginBottom: 15, alignSelf: 'stretch', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
       <RX.View style={{ position:'relative',marginBottom: 30, height: 160, width: showSideMenu?380: 460, justifyContent: 'center', alignItems: 'center', alignSelf: 'flex-start', }}>
 
