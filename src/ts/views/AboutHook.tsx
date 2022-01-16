@@ -444,7 +444,7 @@ const _confirmDeleteDialogId = 'delete';
     </RX.View>
   </RX.View>  
   : 
-   <RX.View style={{  flex:1,alignSelf:'stretch',justifyContent: 'center', alignItems: 'center' }}>
+   <RX.View style={{  flex:1,alignSelf:'stretch',justifyContent: 'flex-start', alignItems: 'center' }}>
                          
                             <UI.Paper elevation={10} style={{ root: {margin:10, justifyContent: "center", alignItems: "center", borderRadius: 20, width: showSideMenu? width*0.7:  width*0.75, backgroundColor: '#343A40', height: 280 } }} >
                       

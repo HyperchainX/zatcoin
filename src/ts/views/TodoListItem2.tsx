@@ -36,8 +36,6 @@ const _styles = {
         borderColor: '#2B2B2B',
         backgroundColor: '#343A40',
         flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
     }),
     todoNameText: RX.Styles.createTextStyle({
         flex: -1,
@@ -123,7 +121,7 @@ export default class TodoListItem2 extends ComponentBase<TodoListItemProps, Todo
     };
     
     private _onRenderItem = (isHovering: boolean) => {
-        const buttonStyles = [_styles.container, this.state.heightStyle];
+        const buttonStyles = [_styles.container, this.state.heightStyle,];
         if (this.props.isSelected) {
             buttonStyles.push(_styles.selected);
         } else if (isHovering) {
@@ -166,7 +164,9 @@ export default class TodoListItem2 extends ComponentBase<TodoListItemProps, Todo
         }
 
         return (
-            <RX.View style={buttonStyles}>
+            <RX.View style={[buttonStyles,{
+                alignItems: this.props.showSideMenu? 'center': 'flex-start',
+                justifyContent:this.props.showSideMenu? 'center': 'center',}]}>
                 {this.props.todo.text === 'Dashboard' ?   <RX.Image source={ImageSource.vector18} style={{  alignSelf: 'center',  width: 20, height: 20 }} />: null}
                 {this.props.todo.text === 'Burns' ?           <RX.Image source={ImageSource.vector1} style={{  alignSelf: 'center',  width: 20, height: 20 }} /> : null}
                {this.props.showSideMenu ? nameText : null}
