@@ -16,8 +16,6 @@ import NavContextStore from '../stores/NavContextStore';
 import * as NavModels from '../models/NavModels';
 import { Colors, Fonts } from '../app/Styles';
 
-import { PartnerHook } from './PartnerHook';
-import CreateTodoPanel from './CreateTodoPanel';
 import TodoCompositeView from './TodoCompositeView';
 import TodoListPanel from './TodoListPanel';
 import TopBarComposite from './TopBarComposite';
@@ -85,7 +83,6 @@ interface Entries {
 import ImageSource from 'modules/images';
 import ResponsiveWidthStore from '../stores/ResponsiveWidthStore';
 import { AboutHook } from './AboutHook';
-import { InvolveHook } from './InvolveHook';
 
 
 const Moralis = require('moralis');
@@ -95,12 +92,6 @@ const appId = "NWvZjcWdUyCimboRDaguhLkaBI6xGD68vxIR0fpm";
 Moralis.start({ serverUrl, appId });
 
 
-import { ChatHook } from './ChatHook';
-import { RoadHook } from './RoadHook';
-import { DocsHook } from './DocsHook';
-import ChatPanel from './ChatPanel';
-import { RechargeHook } from './RechargeHook';
-import { StripeHook } from './StripeHook';
 export default class RootView extends ComponentBase<RootViewProps, RootViewState> {
     private _navigator: Navigator | null = null;
 
@@ -277,31 +268,6 @@ const tokenMetadata = await Moralis.Web3API.token.getTokenMetadata(options2);
 
                 case NavModels.NavViewId.About:
                     return 'About';
-                case NavModels.NavViewId.Involve:
-                    return 'Get Involved';
-
-                case NavModels.NavViewId.Road:
-                    return 'Road Map';
-                case NavModels.NavViewId.Partner:
-                    return 'Partners';
-                case NavModels.NavViewId.NewTodo:
-                    return 'New Todo';
-
-                case NavModels.NavViewId.Docs:
-                    return 'Documentacion';
-                case NavModels.NavViewId.ViewTodo:
-                    return 'Todo Details';
-                case NavModels.NavViewId.Recharge:
-                    return 'Recharge';
-
-                case NavModels.NavViewId.Stripe:
-                    return 'Stripe';
-                case NavModels.NavViewId.Terms:
-                    return 'Terms';
-                case NavModels.NavViewId.Chat:
-                    return 'Chat';
-                case NavModels.NavViewId.Chats:
-                    return 'Chats';
                 default:
                     assert.fail('Unknown view');
                     return '';
@@ -350,29 +316,9 @@ const tokenMetadata = await Moralis.Web3API.token.getTokenMetadata(options2);
                         onCreateNew={this._onCreateNewTodo}
                     />
                 );
-            case NavModels.NavViewId.Docs:
-                return <DocsHook isStackNav={this.state.isStackNav} len={this.state.lenguage} />;
-            case NavModels.NavViewId.NewTodo:
-                return <CreateTodoPanel len={this.state.lenguage} user={this.state.user} />;
-            case NavModels.NavViewId.Partner:
-                return <PartnerHook isStackNav={this.state.isStackNav} len={this.state.lenguage} />;
             case NavModels.NavViewId.About:
                 return <AboutHook isTiny={this.state.isTiny}  user={this.state.user} showSideMenu={this.state.showSideMenu} isConnected={this.state.isConnected}  isLogin={this.state.isLogin}  isStackNav={this.state.isStackNav} len={this.state.lenguage} entries={[]} width={this.state.width} />;
-            case NavModels.NavViewId.Involve:
-                return <InvolveHook isStackNav={this.state.isStackNav} len={this.state.lenguage} entries={[]} width={this.state.width} />;
-            case NavModels.NavViewId.Road:
-                return <RoadHook isStackNav={this.state.isStackNav} len={this.state.lenguage} />;
-            case NavModels.NavViewId.Partner:
-                return <PartnerHook isStackNav={this.state.isStackNav} len={this.state.lenguage} />;
-            case NavModels.NavViewId.Chat:
-                return <ChatHook isLogin={this.state.isLogin} isStackNav={this.state.isStackNav} ownerId={this.state.ownerId} userId={this.state.user.userId} username={this.state.username} owner={this.state.owner} autores={this.state.autores} mensajes={this.state.mensajes} len={this.state.lenguage} />;
-            case NavModels.NavViewId.Recharge:
-                return <RechargeHook isStackNav={this.state.isStackNav} len={this.state.lenguage} />;
-            case NavModels.NavViewId.Stripe:
-                return <StripeHook isLogin={this.state.isLogin} isStackNav={this.state.isStackNav} len={this.state.lenguage} />;
-            case NavModels.NavViewId.Chats:
-                return <ChatPanel isLogin={this.state.isLogin} ownerId={this.state.ownerId} userId={this.state.user.userId} />;
-            case NavModels.NavViewId.Home:
+           case NavModels.NavViewId.Home:
                 return <HomeHook isTiny={this.state.isTiny} holders={this.state.holders}  totalSupply={this.state.totalSupply}  burn={this.state.burn}  supply={this.state.supply}  showSideMenu={this.state.showSideMenu} price={this.state.price}  len={this.state.lenguage} width={this.state.width} isStackNav={this.state.isStackNav} entries={this.state.entries} />;
             case NavModels.NavViewId.ViewTodo:
                 const viewContext = this._findNavContextForRoute(viewId) as NavModels.ViewTodoViewNavContext;

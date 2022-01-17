@@ -168,7 +168,7 @@ export default class AccountMenuButton2 extends ComponentBase<AccountMenuButtonP
                     CurrentUserStore.setLogin(false)
                     NavContextStore.navigateToTodoList()
 
-                    CurrentUserStore.setUser('', '', '', '', '', '', '')
+                    CurrentUserStore.setUser('', '', '', '', '', '', '',"","")
                 });
 
 

@@ -443,6 +443,7 @@ const _confirmDeleteDialogId = 'delete';
   }, [])
   
   return (<RX.View style={{ flex: 1, alignSelf:'stretch',justifyContent:'center',alignItems:'center',backgroundColor: '#212529' }} >
+                  
                        <RX.View style={{ flexDirection: 'row', width:showSideMenu?1000: 1200,marginTop:30,marginBottom:10,justifyContent: 'flex-start', alignItems: 'center',alignSelf:"center", }}>
   <RX.Image source={ImageSource.vector8} style={{     marginRight:10,width: 15, height: 15, }} />
         
@@ -451,6 +452,7 @@ const _confirmDeleteDialogId = 'delete';
     </RX.Text>
     
     </RX.View>
+
   {isLogin === false ? 
   <RX.View style={{ flex:1,alignSelf: 'stretch',marginTop: 0, paddingBottom: 20, marginBottom: 10, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
     <RX.View style={{ position:'relative',marginBottom: 30, height: 300, width: showSideMenu? width*0.7:  width*0.8, justifyContent: 'center', alignItems: 'center', alignSelf: 'flex-start', }}>

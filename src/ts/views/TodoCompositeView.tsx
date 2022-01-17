@@ -13,22 +13,11 @@ import NavContextStore from '../stores/NavContextStore';
 import * as NavModels from '../models/NavModels';
 import { Colors, Fonts, FontSizes } from '../app/Styles';
 
-import CreateTodoPanel from './CreateTodoPanel';
-import TodoListPanel from './TodoListPanel';
 import TodoListPanel2 from './TodoListPanel2';
-import ViewTodoPanel from './ViewTodoPanel';
 import { HomeHook } from './HomeHook';
-import { PartnerHook } from './PartnerHook';
-import { ChatHook } from './ChatHook';
-
-import { InvolveHook } from './InvolveHook';
 import { AboutHook } from './AboutHook';
 
-import * as UI from '@sproutch/ui';
-import TodoListPanel3 from './TodoListPanel3';
 import CurrentUserStore from '../stores/CurrentUserStore';
-import { RoadHook } from './RoadHook';
-import { DocsHook } from './DocsHook';
 
 interface Entries {
     img: string;
@@ -107,11 +96,6 @@ const _styles = {
     }),
 };
 
-import { translate } from './translate';
-import { TermsHook } from './TermsHook';
-import ChatPanel from './ChatPanel';
-import { RechargeHook } from './RechargeHook';
-import { StripeHook } from './StripeHook';
 import ResponsiveWidthStore from '../stores/ResponsiveWidthStore';
 
 export default class TodoCompositeView extends ComponentBase<TodoCompositeViewProps, TodoCompositeViewState> {
@@ -154,57 +138,13 @@ export default class TodoCompositeView extends ComponentBase<TodoCompositeViewPr
     }
 
     private _renderRightPanel() {
-        if (this.props.navContext.showNewTodoPanel) {
-            return (
-                <CreateTodoPanel len={this.props.lenguage} user={this.props.user} />
-            );
-        } else if (this.props.navContext.showHomePanel) {
+        if (this.props.navContext.showHomePanel) {
             return (
                 <HomeHook supply={this.state.supply} isTiny={this.state.isTiny} holders={this.state.holders}  totalSupply={this.state.totalSupply}  burn={this.state.burn}  showSideMenu={this.props.showSideMenu} price={this.state.price} len={this.props.lenguage} width={this.props.width} isStackNav={this.props.isStackNav} entries={this.props.entries} />
             );
-        } else if (this.props.navContext.todoList.selectedTodoId) {
-            return (
-                <ViewTodoPanel todoId={this.props.navContext.todoList.selectedTodoId} />
-            );
-        } else if (this.props.navContext.showAbout) {
+        }  else if (this.props.navContext.showAbout) {
             return (
                 <AboutHook isTiny={this.state.isTiny}  user={this.state.user} showSideMenu={this.props.showSideMenu}  isConnected={this.state.isConnected} isLogin={this.props.isLogin} isStackNav={this.props.isStackNav} len={this.props.lenguage} entries={[]} width={this.props.width} />
-            );
-        } else if (this.props.navContext.showInvolve) {
-            return (
-                <InvolveHook isStackNav={this.props.isStackNav} len={this.props.lenguage} entries={[]} width={this.props.width} />
-            );
-        } else if (this.props.navContext.showRoad) {
-            return (
-                <RoadHook isStackNav={this.props.isStackNav} len={this.props.lenguage} />
-            );
-        } else if (this.props.navContext.showInvolve) {
-            return (
-                <PartnerHook isStackNav={this.props.isStackNav} len={this.props.lenguage} />
-            );
-        } else if (this.props.navContext.showTerms) {
-            return (
-                <TermsHook len={this.props.lenguage} />
-            );
-        } else if (this.props.navContext.showDocs) {
-            return (
-                <DocsHook isStackNav={this.props.isStackNav} len={this.props.lenguage} />
-            );
-        } else if (this.props.navContext.showChat) {
-            return (
-                <ChatHook isLogin={this.props.isLogin} isStackNav={this.props.isStackNav} ownerId={this.props.ownerId} userId={this.props.user.userId} username={this.props.username} owner={this.props.owner} mensajes={this.props.mensajes} autores={this.props.autores} len={this.props.lenguage} />
-            );
-        } else if (this.props.navContext.showRecharge) {
-            return (
-                <RechargeHook isStackNav={this.props.isStackNav} len={this.props.lenguage} />
-            );
-        } else if (this.props.navContext.showStripe) {
-            return (
-                <StripeHook isLogin={this.props.isLogin} isStackNav={this.props.isStackNav} len={this.props.lenguage} />
-            );
-        } else if (this.props.navContext.showChats) {
-            return (
-                <ChatPanel isLogin={this.props.isLogin} ownerId={this.props.ownerId} userId={this.props.user.userId} />
             );
         } else {
             return <HomeHook isTiny={this.state.isTiny} totalSupply={this.state.totalSupply} holders={this.state.holders}  burn={this.state.burn} supply={this.state.supply}  showSideMenu={this.props.showSideMenu} price={this.state.price}  len={this.props.lenguage} width={this.props.width} isStackNav={this.props.isStackNav} entries={this.props.entries} />;
@@ -215,14 +155,6 @@ export default class TodoCompositeView extends ComponentBase<TodoCompositeViewPr
         NavContextStore.navigateToTodoList(todoId, false);
     };
 
-    private goToAll() {
-        CurrentUserStore.setActive('all')
-        NavContextStore.navigateToTodoList()
-    };
-    private goToMy() {
-        CurrentUserStore.setActive('My')
-        NavContextStore.navigateToTodoList()
-    };
 
     private _onCreateNewTodo = () => {
         NavContextStore.navigateToTodoList('', true);
