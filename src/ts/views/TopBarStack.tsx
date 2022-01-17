@@ -9,13 +9,14 @@
 import * as RX from 'reactxp';
 import { ComponentBase } from 'resub';
 
+import ImageSource from 'modules/images';
 import { Colors, Fonts, FontSizes, Styles } from '../app/Styles';
 import AccountMenuButton from './AccountMenuButton';
 
 const _styles = {
     background: RX.Styles.createViewStyle({
         alignSelf: 'stretch',
-        height: 66,
+        height: 45,
         borderBottomWidth: 1,
         backgroundColor:"#212529",
         borderColor: Colors.gray66,
@@ -59,6 +60,12 @@ const _styles = {
         fontSize: FontSizes.size20,
         marginLeft: 10,
         color: "#0DCAF0",
+    }),
+    titleStylefoot: RX.Styles.createTextStyle({
+      font: Fonts.displayRegular,
+      fontSize: 16,
+      color: '#6C757D',
+      alignSelf: 'center'
     }),
 };
 
@@ -146,8 +153,32 @@ export default class TopBarStack extends ComponentBase<TopBarStackProps, TopBarC
 
                 </RX.View>
 
-                <RX.View style={{ flex: 13, height: 56, paddingVertical: 10, marginVertical: 10, justifyContent: 'center', alignItems: 'center' }} >
-                    
+                <RX.View style={{ flex: 13, height: 45, paddingVertical: 10, marginVertical: 10, justifyContent: 'center', alignItems: 'center' }} >
+               
+                   
+                    <RX.View style={{alignSelf:'center',flexDirection:'row',width:100,height:45,}}>
+                   
+                   
+                    <RX.View onPress={()=>RX.Linking.openUrl('https://zatcoin.io/home')} style={{flexDirection:'row', justifyContent:'center',alignItems:'center'}}>
+                    <RX.Image source={ImageSource.vector15} style={{     marginRight:20,width: 15, height: 15, }} />
+             
+                   
+              </RX.View>
+
+              <RX.View onPress={()=>RX.Linking.openUrl('https://t.me/zatcointools')} style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
+                    <RX.Image source={ImageSource.vector14} style={{     marginRight:20,width: 15, height: 15, }} />
+             
+               
+
+              </RX.View>
+              
+              <RX.View onPress={()=>RX.Linking.openUrl('https://twitter.com/zatcoin')} style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
+                    <RX.Image source={ImageSource.vector16} style={{     marginRight:20,width: 15, height: 15, }} />
+             
+               
+         
+              </RX.View>
+                    </RX.View>
                 </RX.View>
             </RX.View>
         );

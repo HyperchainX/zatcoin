@@ -367,10 +367,10 @@ export const HomeHook = ({
   const [isPlaying, setPlaying] = useState(false)
   return (<RX.View style={{ flex: 1, alignSelf:'stretch',justifyContent:'center',alignItems:'center',backgroundColor: '#212529' }} >
                    
-                   { isTiny?  <RX.View style={{width: width*0.8, height: 180,borderRadius:12,marginTop:20,marginBottom:0}}>
+                   { isTiny?  <RX.View style={{width: width*0.8, height: 120,borderRadius:12,marginTop:20,marginBottom:0}}>
                       <RXVideo
                             source={'https://res.cloudinary.com/indexcoorp/video/upload/v1642202319/FINAL_RENDER_001_1_tnklob.mp4'}
-                            style={{ width: width*0.8, height: 180,borderRadius:12, }}
+                            style={{ width: width*0.8, height: 120,borderRadius:12, }}
                             loop={true}        
                             onCanPlay={_playVideo}
                             showControls={false}
@@ -390,14 +390,14 @@ export const HomeHook = ({
                     
                       </RX.View>}
 
-                  {   isTiny? <RX.View style={{ flexDirection: 'row', width,marginTop:20,justifyContent: 'center', alignItems: 'center',alignSelf:"center", }}>
+                  {   isTiny? <RX.View style={{ flexDirection: 'row', width,marginTop:10,justifyContent: 'center', alignItems: 'center',alignSelf:"center", }}>
                        <RX.Image source={ImageSource.vector8} style={{     marginRight:10,width: 15, height: 15, }} />
             
       <RX.Text style={[_styles.titleStyleBig, {alignSelf: 'center', }]} >
       {"TOKEN INFO."}
     </RX.Text>
     
-    </RX.View>: <RX.View style={{ flexDirection: 'row', paddingLeft:100,width:width,marginTop:0,justifyContent: 'flex-start', alignItems: 'center',alignSelf:"center", }}>
+    </RX.View>: <RX.View style={{ flexDirection: 'row', paddingLeft:150,width:width,marginTop:0,justifyContent: 'flex-start', alignItems: 'center',alignSelf:"center", }}>
                        <RX.Image source={ImageSource.vector8} style={{     marginRight:10,width: 15, height: 15, }} />
             
       <RX.Text style={[_styles.titleStyleBig, {alignSelf: 'center',}]} >
@@ -405,9 +405,8 @@ export const HomeHook = ({
     </RX.Text>
     
     </RX.View>} 
-{isTiny? <RX.ScrollView style={{ 
-   alignSelf: 'stretch', flex:1 }}>
-  <RX.View style={{flex:1,justifyContent:'center',alignItems:'center'}}> 
+{isTiny? <RX.View style={{ 
+   alignSelf: 'stretch', flex:1,justifyContent:'flex-start',alignItems:'center' }}>
   <RX.View  style={{justifyContent:'center',alignItems:'center',alignSelf:'center',height: 80,marginTop:20,width: width*0.9,}}>
 <UI.Paper elevation={10} style={{ root: {margin:5,elevation: 0, position: 'absolute', justifyContent: "center", alignItems: "center", borderRadius: 8, backgroundColor: '#343A40', height: 70,width: width*0.8,  } }} >
 
@@ -537,8 +536,8 @@ export const HomeHook = ({
 
 </UI.Paper>
 
-</RX.View></RX.View>
-   </RX.ScrollView>:
+</RX.View>
+   </RX.View>:
       <RX.View style={{  height:180,marginTop: 0, paddingBottom: 0, marginBottom: 15, alignSelf: 'stretch', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
       <RX.View style={{ position:'relative',marginBottom: 30, height: 160, width: showSideMenu?380: 460, justifyContent: 'center', alignItems: 'center', alignSelf: 'flex-start', }}>
 
